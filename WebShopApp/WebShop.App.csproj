@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WebShop.Core\WebShop.Core.csproj" />
+    <ProjectReference Include="..\WebShop.Services\WebShop.Services.csproj" />
   </ItemGroup>
 
 </Project>

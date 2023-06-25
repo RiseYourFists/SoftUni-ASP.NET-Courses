@@ -9,8 +9,13 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace WebShop.Core.Data.Common
 {
-    public abstract class Repository : IRepository
+    public class Repository : IRepository
     {
+        public Repository(DbContext context)
+        {
+            this.Context = context;
+        }
+
         protected DbContext Context { get; set; }
 
         protected DbSet<T> DbSet<T>() where T : class

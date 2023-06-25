@@ -1,7 +1,10 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebShop.Core.Data;
 using WebShop.Core.Data.Common;
+using WebShop.Services.Contracts;
+using WebShop.Services.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +20,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<DbContext, ApplicationDbContext>();
 builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
 

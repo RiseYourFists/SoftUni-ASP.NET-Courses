@@ -24,6 +24,8 @@ namespace WebShop.Services.Service
             var newProduct = _mapper.Map<Product>(product);
 
             await _repo.AddAsync(newProduct);
+
+            await _repo.SaveChangesAsync();
         }
 
         public Task<bool> Delete(Guid id)
@@ -48,9 +50,13 @@ namespace WebShop.Services.Service
             throw new NotImplementedException();
         }
 
-        public Task<ProductInfoDto> GetById(Guid id)
+        public async Task<ProductInfoDto> GetById(Guid id)
         {
-            throw new NotImplementedException();
+            var result = await _repo.GetByIdAsync<Product>(id);
+
+            var info = _mapper.Map<ProductInfoDto>(result);
+
+            return info;
         }
     }
 }

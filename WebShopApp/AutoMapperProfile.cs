@@ -14,6 +14,10 @@ namespace WebShop.App
             this.CreateMap<Product, ProductInfoDto>();
 
             this.CreateMap<ListProductDto, ProductShortViewModel>();
+            this.CreateMap<AddProductViewModel, AddProductDto>();
+
+            this.CreateMap<ProductInfoDto, ViewItemViewModel>();
+            this.CreateMap<Product, ProductInfoDto>();
         }
     }
 }

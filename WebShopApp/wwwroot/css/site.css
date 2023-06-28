@@ -1,3 +1,5 @@
+@import "https://use.fontawesome.com/releases/v5.6.3/css/all.css";
+
 html {
   font-size: 14px;
 }
@@ -14,5 +16,93 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+}
+
+*,
+*::after,
+*::before{
+  border-collapse: collapse;
+
+}
+
+.btn{
+  background-color: transparent;
+  padding: 8px 16px;
+  border: none;
+}
+
+.btn-info{
+  position: relative;
+  transition: background-color 300ms;
+  background-color: rgba(0, 136, 255, 0.801);
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  padding-left: 25px;
+}
+
+.btn-info::before{
+  content: url("./info.svg");
+  position: absolute;
+  left: 5px;
+  top: 7px;
+  height: 100%;
+  width: 20%;
+}
+
+.btn-info:hover{
+  background-color: rgba(0, 136, 255, 0.601);
+}
+
+table{
+  border: 1px solid black;
+  width: 100%;
+  color: white;
+  text-shadow: 0 0 2px black;
+  font-size: 1.5em;
+  transition: color 300ms;
+}
+
+tr{
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.table-head{
+  padding: 10px 0px;
+  background-color: rgb(0, 215, 193);
+  text-shadow: 0 0 4px black;
+}
+
+td{
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+td > form{
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  margin: 0;
+}
+
+tbody > tr{
+  border-top: 1px solid black;
+  padding: 10px 0px;
+}
+
+tbody > tr:nth-child(odd){
+  background-color: rgba(47, 255, 151, 0.801);
+}
+
+tbody > tr:nth-child(even){
+  background-color: rgba(47, 255, 151, 0.298);
+}
+
+tbody > tr:hover{
+  opacity: 0.6;
+  color: rgb(0, 251, 255);
 }

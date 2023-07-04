@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Abp.Web.Common" Version="8.2.0" />
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="EFCore.NamingConventions" Version="6.0.0" />
@@ -25,6 +26,10 @@
   <ItemGroup>
     <ProjectReference Include="..\WebShop.Core\WebShop.Core.csproj" />
     <ProjectReference Include="..\WebShop.Services\WebShop.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

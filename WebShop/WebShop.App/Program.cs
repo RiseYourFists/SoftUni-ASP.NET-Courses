@@ -2,27 +2,32 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebShop.Core.Data;
+using WebShop.Core.Data.Models.AccountModels;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("PostgresConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString).UseSnakeCaseNamingConvention());
+    options.UseNpgsql(connectionString).UseSnakeCaseNamingConvention());
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => 
+builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
     {
         options.SignIn.RequireConfirmedAccount = false;
         options.Password.RequiredLength = 8;
         options.Lockout.MaxFailedAccessAttempts = 5;
         options.User.RequireUniqueEmail = true;
     })
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders()
+    .AddUserStore<ApplicationUser>();
+
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<DbContext, ApplicationDbContext>();
-builder.Services.AddScoped<IMapper, Mapper>();
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 

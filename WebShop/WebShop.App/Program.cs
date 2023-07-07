@@ -24,7 +24,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
     .AddDefaultTokenProviders()
     .AddUserStore<ApplicationUser>();
 
-
+builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<DbContext, ApplicationDbContext>();
 builder.Services.AddAutoMapper(typeof(Program));

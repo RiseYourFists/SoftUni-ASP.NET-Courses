@@ -1,0 +1,96 @@
+:root{
+    --color-bg-btn-ok: rgb(0, 167, 0);
+    --color-bg-btn-cancel: rgba(255, 67, 67, 0.928);
+    --color-bg-btn-info: rgb(36, 138, 255);
+
+    --color-primary: black;
+    --color-secondary: white;
+
+    --ico-size: 18px;
+}
+
+.cus-btn{
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    color: black;
+    transition: color 300ms;
+}
+
+.cus-btn:hover{
+    color: rgba(0, 0, 0, .75);
+}
+
+.cus-btn-ok{
+    background-color: var(--color-bg-btn-ok);
+}
+
+.cus-btn-cancel{
+    background-color: var(--color-bg-btn-cancel);
+}
+
+.cus-btn-delete{
+    background-color: var(--color-bg-btn-cancel);
+}
+
+.cus-btn-info{
+    background-color: var(--color-bg-btn-info);
+}
+
+.cus-btn-add{
+    background-color: var(--color-bg-btn-info);
+}
+
+.cus-btn-add,
+.cus-btn-cancel,
+.cus-btn-delete,
+.cus-btn-info,
+.cus-btn-ok{
+    color: var(--color-secondary); 
+    padding: 8px;
+    border-radius: 8px;
+    display: flex;
+    width: fit-content;
+}
+
+.cus-btn-add:hover,
+.cus-btn-cancel:hover,
+.cus-btn-delete:hover,
+.cus-btn-info:hover,
+.cus-btn-ok:hover{
+    color: var(--color-secondary);
+    opacity: 0.9;
+}
+
+.cus-btn-add::before,
+.cus-btn-cancel::before,
+.cus-btn-delete::before,
+.cus-btn-info::before,
+.cus-btn-ok::before{
+    content: "";
+    width: var(--ico-size);
+    height: var(--ico-size);
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: 0;
+    margin-right: 5px;
+}
+
+.cus-btn-ok::before{
+    background-image: url("./svg/ok.svg");
+}
+
+.cus-btn-cancel::before{
+    background-image: url("./svg/cancel.svg");
+}
+
+.cus-btn-delete::before{
+    background-image: url("./svg/delete.svg");
+}
+
+.cus-btn-info::before{
+    background-image: url("./svg/info.svg");
+}
+
+.cus-btn-add::before{
+    background-image: url("./svg/add.svg");
+}

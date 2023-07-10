@@ -32,5 +32,10 @@ namespace WebShop.Services.Models
         [Compare(nameof(Password), ErrorMessage = ErrorMessages.Passwords.NotMatchingPassword)]
         public string RetypePassword { get; set; } = null!;
 
+        [Required]
+        [MinLength(AttributeValidations.AccountUser.UserNameMinLength)]
+        [MaxLength(AttributeValidations.AccountUser.UserNameMaxLength)]
+        public string UserName { get; set; } = null!;
+
     }
 }

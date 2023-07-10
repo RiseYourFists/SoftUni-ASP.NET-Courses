@@ -27,9 +27,12 @@ namespace WebShop.Services.Utilities
             {
                 public const int FirstNameMinLength = 2;
                 public const int LastNameMinLength = 2;
+                public const int UserNameMinLength = 2;
 
                 public const int FirstNameMaxLength = 40;
                 public const int LastNameMaxLength = 50;
+                public const int UserNameMaxLength = 50;
+
             }
         }
     }

@@ -34,6 +34,7 @@ namespace WebShop.App.Controllers
             return View(model);
         }
 
+        [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
@@ -65,6 +66,7 @@ namespace WebShop.App.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
         public IActionResult LogOut(string? returnUrl = null)
         {
             return View();

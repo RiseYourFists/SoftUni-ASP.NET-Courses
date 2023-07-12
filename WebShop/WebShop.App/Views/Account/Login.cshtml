@@ -1,0 +1,20 @@
+﻿@using WebShop.Services.Models;
+@model LoginViewModel;
+
+<div class="screen-container register-container">
+    <h1>Sign in</h1>
+    <form class="register-form login-override" method="post">
+        <div class="input-wrapper">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div>
+                <span asp-validation-for="Email"></span>
+                <input asp-for="Email" type="email" placeholder="Email">
+            </div>
+            <div>
+                <span asp-validation-for="Password"></span>
+                <input asp-for="Password" type="password" placeholder="Password">
+            </div>
+        </div>
+        <button class="register-btn" type="submit">Login</button>
+    </form>
+</div>

@@ -17,7 +17,6 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     {
         options.SignIn.RequireConfirmedAccount = false;
         options.Password.RequiredLength = 8;
-        options.Lockout.MaxFailedAccessAttempts = 5;
         options.User.RequireUniqueEmail = true;
     })
     .AddEntityFrameworkStores<ApplicationDbContext>()

@@ -23,7 +23,39 @@ namespace WebShop.App.Controllers
         {
             ViewBag.Title = "Login";
 
-            return View();
+            return View(new LoginViewModel() { ReturnUrl = returnUrl });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await userManager.FindByEmailAsync(model.Email);
+
+            if (user == null && user.IsActive)
+            {
+                ModelState.AddModelError("", "User not found!");
+                return View(model);
+            }
+
+            var result = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", "Login failed!");
+                return View(model);
+            }
+
+            if (model.ReturnUrl == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return Redirect(model.ReturnUrl);
         }
 
         [HttpGet]

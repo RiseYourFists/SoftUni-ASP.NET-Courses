@@ -19,6 +19,6 @@ body {
   margin-bottom: 60px;
 }
 
-header, footer{
+header, footer, body{
   background-color: #cccccc;
 }

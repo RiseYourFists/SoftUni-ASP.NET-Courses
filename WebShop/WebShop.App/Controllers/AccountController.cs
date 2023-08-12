@@ -99,9 +99,10 @@ namespace WebShop.App.Controllers
         }
 
         [HttpGet]
-        public IActionResult LogOut(string? returnUrl = null)
+        public IActionResult LogOut()
         {
-            return View();
+            signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

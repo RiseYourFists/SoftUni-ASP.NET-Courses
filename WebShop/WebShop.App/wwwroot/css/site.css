@@ -18,3 +18,7 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+header, footer{
+  background-color: #cccccc;
+}

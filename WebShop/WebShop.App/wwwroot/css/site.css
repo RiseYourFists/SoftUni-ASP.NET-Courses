@@ -2,7 +2,10 @@ html {
   font-size: 14px;
 }
 
-
+.home-logo {
+  width: 80px;
+  border-radius: 50%;
+}
 
 @media (min-width: 768px) {
   html {
@@ -15,10 +18,12 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+body{
+  position: relative;
+  background-color: #cccccc;
+  color: white;
 }
 
-header, footer, body{
-  background-color: #cccccc;
+a, header *, body *{
+  color: white;
 }

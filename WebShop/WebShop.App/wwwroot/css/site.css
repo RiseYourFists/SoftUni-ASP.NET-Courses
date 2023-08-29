@@ -1,9 +1,13 @@
+
 html {
   font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  min-height: 100%;
 }
 
 .home-logo {
-  width: 80px;
+  width: 60px;
   border-radius: 50%;
 }
 
@@ -13,17 +17,28 @@ html {
   }
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body{
   position: relative;
   background-color: #cccccc;
-  color: white;
 }
 
 a, header *, body *{
-  color: white;
+  color: black;
+}
+
+a{
+  text-decoration: none;
+}
+
+a:hover{
+  color: rgba(0,0,0,0.7);
+}
+
+footer, header{
+  text-shadow: 1px 1px 2px black;
+  background-color: rgba(255,255,255,0.8);
+}
+
+footer{
+  padding: 20px 0;
 }

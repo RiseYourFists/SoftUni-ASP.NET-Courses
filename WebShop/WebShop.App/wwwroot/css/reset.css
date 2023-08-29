@@ -9,3 +9,15 @@ main{
     min-height: 100dvh;
     overflow-x: hidden;
 }
+
+button{
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+a, button{
+    user-select: none;
+    cursor: pointer;
+}

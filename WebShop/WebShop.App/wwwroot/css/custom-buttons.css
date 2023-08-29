@@ -46,10 +46,12 @@
 .cus-btn-info,
 .cus-btn-ok{
     color: var(--color-secondary); 
-    padding: 8px;
+    padding: 5px;
     border-radius: 8px;
     display: flex;
     width: fit-content;
+    height: fit-content;
+    align-items: center;
 }
 
 .cus-btn-add:hover,
@@ -73,6 +75,7 @@
     background-repeat: no-repeat;
     background-position: 0;
     margin-right: 5px;
+    background-position: center;
 }
 
 .cus-btn-ok::before{
@@ -93,4 +96,95 @@
 
 .cus-btn-add::before{
     background-image: url("./svg/add.svg");
+}
+
+.item-card{
+    width: 150px;
+    height: 220px;
+    overflow: hidden;
+    border-radius: 6px;
+    background-color: lightgray;
+    box-shadow: 1px 2px 5px 0px gray
+}
+
+.img-container{
+    width: 100%;
+    height: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.img-container img{
+    width: 100%;
+    object-fit: cover;
+    transition: all 1s;
+    transition: transform 0.3s ease-in-out;
+}
+
+.img-container img:hover{
+    transform: scale(1.2);
+}
+
+.card-content{
+    height: 40%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 5px;
+    padding-bottom: 5px;
+}
+
+.item-card strong{
+    color: black;
+    font-size: 18px;
+}
+
+.item-card .action-list{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.details-secondary{
+    display: block;
+    width: 90%;
+    text-align: center;
+    font-weight: 600;
+    color: white;
+    text-shadow: 1px 1px black;
+    background: rgb(255,255,255);
+    background: linear-gradient(
+        0deg,
+        rgba(255,255,255,1) 0%,
+        rgba(255,255,255,1) 1%,
+        rgba(173,173,173,1) 99%,
+        rgba(255,255,255,1) 100%
+    );
+    padding: 5px;
+    text-decoration: none;
+    border: 1px solid rgb(192, 192, 192);
+    border-radius: 4px;
+}
+
+.details-secondary:hover{
+    color: rgba(255,255,255,0.9);
+    background: rgb(255,255,255);
+    background: linear-gradient(
+        0deg, 
+        rgba(173,173,173,1) 0%,
+        rgba(173,173,173,1) 1%, 
+        rgba(255,255,255,1) 99%,
+        rgba(173,173,173,1) 100%
+    );
+}
+
+.card-content p{
+    color: gray;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 90%;
 }

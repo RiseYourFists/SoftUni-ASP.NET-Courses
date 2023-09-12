@@ -2,7 +2,7 @@
 @using WebShop.Core.Data.Models.AccountModels
 @inject SignInManager<ApplicationUser> SignInManager
 
-<ul class="navbar-nav">
+<ul class="navbar-nav profile-nav">
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">

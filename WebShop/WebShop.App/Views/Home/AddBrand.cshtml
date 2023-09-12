@@ -1,0 +1,33 @@
+﻿@model AddBrandModel;
+@{
+    ViewBag.Title = "Add Brand";
+}
+
+<div class="main-content space-between">
+    <h2 class="title">Add Brand</h2>
+    <div class="split-wrapper  flex-direction-col">
+            
+        <div class="preview-img-container height-300">
+            <img src="" alt="" class="preview-img">
+        </div>
+        <div asp-validation-summary="ModelOnly"></div>
+        <form method="post" class="create-item-form width-100-percent">
+            <div class="centered-wrapper">
+                <label asp-for="Name">Brand name:</label>
+                <input asp-for="Name" type="text" >
+                <span asp-validation-for="Name"></span>
+            </div>
+
+            <div class="centered-wrapper">
+                <label asp-for="BrandLogoImgUrl">Brand Image URL:</label>
+                <input class="preview-img-input" type="text" asp-for="BrandLogoImgUrl">
+                <span asp-validation-for="BrandLogoImgUrl"></span>
+            </div>
+            <div class="centered-wrapper">
+                <a class="cus-btn cus-btn-cancel" asp-action="Index">Cancel</a>
+                <button class="cus-btn cus-btn-ok">Create</button>
+            </div>
+        </form>
+            
+    </div>
+</div>

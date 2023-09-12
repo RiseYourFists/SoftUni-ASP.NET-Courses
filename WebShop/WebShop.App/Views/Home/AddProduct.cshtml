@@ -1,0 +1,74 @@
+﻿@model WebShop.Services.Models.ProductModels.AddProductModel;
+
+@{
+    ViewBag.Title = "Add Product";
+}
+
+
+<div class="main-content space-between">
+    <h2 class="title">Add Product</h2>
+    <div class="split-wrapper">
+
+        <div class="preview-img-container">
+            <img src="" alt="" class="preview-img">
+        </div>
+        <div asp-validation-summary="ModelOnly"></div>
+        <form method="post" class="create-item-form">
+            <div class="centered-wrapper">
+                <label asp-for="Name">Product name:</label>
+                <input asp-for="Name" type="text">
+                <span asp-validation-for="Name"></span>
+            </div>
+            <div class="centered-wrapper">
+                <label asp-for="Description">Description:</label>
+                <textarea asp-for="Description" type="text"></textarea>
+                <span asp-validation-for="Description"></span>
+            </div>
+            <div class="centered-wrapper">
+                <label asp-for="Price">Price:</label>
+                <input asp-for="Price" type="text">
+                <span asp-validation-for="Price"></span>
+            </div>
+
+            <div class="centered-wrapper">
+                <label asp-for="ProductImage">Image URL:</label>
+                <input asp-for="ProductImage" class="preview-img-input" type="text">
+                <span asp-validation-for="ProductImage"></span>
+            </div>
+            <div class="centered-wrapper">
+                <label asp-for="BrandId">Brand:</label>
+                <select asp-for="BrandId">
+                    @foreach (var brand in Model.Brands)
+                    {
+                        <option value="@brand.Id">@brand.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="BrandId"></span>
+            </div>
+            <div class="centered-wrapper">
+                <label asp-for="CategoryId">Category:</label>
+                <select asp-for="CategoryId">
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="CategoryId"></span>
+            </div>
+            <div class="centered-wrapper">
+                <label asp-for="StockQuantity">Quantity:</label>
+                <div class="quantity-wrapper">
+                    <button class="btn-add">+</button>
+                    <input asp-for="StockQuantity" class="num-input" type="number">
+                    <button class="btn-subtract">-</button>
+                </div>
+                <span asp-validation-for="StockQuantity"></span>
+            </div>
+            <div class="centered-wrapper">
+                <a asp-action="Index" class="cus-btn cus-btn-cancel">Cancel</a>
+                <button class="cus-btn cus-btn-ok">Create</button>
+            </div>
+        </form>
+
+    </div>
+</div>

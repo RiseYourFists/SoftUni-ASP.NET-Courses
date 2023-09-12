@@ -1,0 +1,33 @@
+﻿@model AddCategoryModel;
+@{
+    ViewBag.Title = "Add Category";
+}
+
+<div class="main-content space-between">
+    <h2 class="title">Add Category</h2>
+    <div class="split-wrapper  flex-direction-col">
+            
+        <div class="preview-img-container height-300">
+            <img src="" alt="" class="preview-img">
+        </div>
+        <div asp-validation-summary="ModelOnly"></div>
+        <form method="post" class="create-item-form width-100-percent">
+            <div class="centered-wrapper">
+                <label asp-for="Name">Category name:</label>
+                <input asp-for="Name" type="text" >
+                <span asp-validation-for="Name"></span>
+            </div>
+
+            <div class="centered-wrapper">
+                <label asp-for="CategoryImage">Image URL:</label>
+                <input class="preview-img-input" type="text" asp-for="CategoryImage">
+                <span asp-validation-for="CategoryImage"></span>
+            </div>
+            <div class="centered-wrapper">
+                <a class="cus-btn cus-btn-cancel">Cancel</a>
+                <button class="cus-btn cus-btn-ok">Create</button>
+            </div>
+        </form>
+            
+    </div>
+</div>

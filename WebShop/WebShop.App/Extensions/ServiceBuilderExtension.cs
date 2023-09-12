@@ -1,5 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebShop.Core.Contracts;
 using WebShop.Core.Data;
+using WebShop.Core.Repository;
+using WebShop.Services.Contracts;
+using WebShop.Services.Services;
+using WebShop.Services.Utilities;
 
 namespace WebShop.App.Extensions
 {
@@ -14,10 +19,12 @@ namespace WebShop.App.Extensions
             builder.AddCors();
 
             /*3-rd party services*/
-            builder.AddAutoMapper(typeof(Program));
+            builder.AddAutoMapper(typeof(MappingProfile));
 
             /*Custom services*/
             builder.AddScoped<DbContext, ApplicationDbContext>();
+            builder.AddScoped<IRepository, Repository>();
+            builder.AddScoped<IProductService, ProductService>();
 
             return builder;
         }

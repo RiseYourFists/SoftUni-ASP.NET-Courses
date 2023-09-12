@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
-using WebShop.Core.Validation;
+using WebShop.Core.Utilities.Validation;
 
 namespace WebShop.Core.Data.Models.WebShopModels
 {

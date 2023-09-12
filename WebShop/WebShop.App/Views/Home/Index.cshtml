@@ -1,8 +1,97 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model SearchProductViewModel;
+
+@{
+    ViewBag.Title = "Products";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="item-collection-container">
+    <aside class="sidebar">
+        <nav>
+            <div data-att-folded="true" class="expansion-wrapper">
+                <div class="expansion-window">
+                    <button>
+                        <span class="fold-icon"><i class="fas fa-chevron-down"></i></span><strong>Categories</strong>
+                    </button>
+                </div>
+                <div class="expansion-container closed">
+
+                    <ul class="categories content" style="display: none;">
+
+                        <li><button class="category-btn" data-value="-1">All</button></li>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <li><button class="category-btn" data-value="@category.Id">@category.Name</button></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="order-by-wrapper">
+            <select class="on-change-select" asp-for="OrderBy">
+                <option value="Name">Alphabetical: (A-z)</option>
+                <option value="PriceAsc">Price: Low ► High</option>
+                <option value="PriceDesc">Price: High ► Low</option>
+            </select>
+        </div>
+    </aside>
+    <section class="main-content">
+        <div>
+            <div class="centered-wrapper">
+                <form method="get" class="search-bar auto-submit">
+                    <input type="text" hidden asp-for="CategoryId" name="categoryId" id="category-id">
+                    <input type="text" hidden asp-for="CurrentPage" name="page" id="page" data-result-hook="1">
+                    <input type="text" hidden asp-for="OrderBy" name="orderBy" id="orderBy">
+                    <div class="wrapper">
+                        <input placeholder="Search..." type="text" asp-for="SearchTerm" name="searchTerm">
+                        <button class="clear">x</button>
+                    </div>
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <h3>Search results:</h3>
+            <div class="product-result-list">
+                <div class="wrapper">
+                    @foreach (var product in Model.Products)
+                    {
+                        <partial model="@product" name="ProductTemplates/_ProductCardPartial" />
+                    }
+                </div>
+            </div>
+            <div class="pages-bar">
+                @{
+                    var pages = Model.ProductCount / Model.ItemsPerPage;
+                    var currentPage = Model.CurrentPage;
+                    <ul data-result-hook="1" data-last-page="@pages" data-current-page="@Model.CurrentPage">
+
+                        <li><button class="page-start paging-btn" data-page="1">◄◄</button></li>
+                        <li><button class="page-back paging-btn">◄</button></li>
+                        @{
+                            
+                            for (var i =  currentPage - 1; i < currentPage; i++)
+                            {
+                                
+                                if (i < 1)
+                                {
+                                    continue;;
+                                }
+                               
+                                <li><a class="page-option paging-btn" data-page="@i">@i</a></li>
+                            }
+                        }
+                        
+                        <li><button disabled class="paging-btn" data-page="@Model.CurrentPage">@Model.CurrentPage</button></li>
+                        @{
+                            for (var i = currentPage + 1; i <= pages; i++)
+                            {
+                                <li><a class="page-option paging-btn" data-page="@i">@i</a></li>
+                            }
+                        }
+                        <li><button class="page-next paging-btn">►</button></li>
+                        <li><button class="page-end paging-btn" data-page="@pages">►►</button></li>
+                    </ul>
+                }
+            </div>
+        </div>
+    </section>
 </div>

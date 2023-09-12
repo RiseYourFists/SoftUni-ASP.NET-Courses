@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using WebShop.Core.Validation;
+using WebShop.Core.Utilities.Validation;
 
 namespace WebShop.Core.Data.Models.WebShopModels
 {
@@ -13,12 +12,12 @@ namespace WebShop.Core.Data.Models.WebShopModels
 
         [Required]
         [StringLength(CategoryConstants.NameMaxLength)]
-        [Comment("Brand name")]
+        [Comment("Category name")]
         public string Name { get; set; } = null!;
 
         [StringLength(SharedConstants.ImgUrlMaxLength)]
         [Comment("Category img")]
-        public string? BrandImg { get; set; }
+        public string? CategoryBannerImg { get; set; }
 
         [Required]
         [Comment("Deletion flag")]

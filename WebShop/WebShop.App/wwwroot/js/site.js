@@ -1,14 +1,97 @@
 ﻿const btnMappings = {
-    quantityWrappers: document.querySelectorAll('.quantity-wrapper'),
-    cardOpenFormBtn: document.querySelectorAll('.open-form'),
-    cardAddCancel: document.querySelectorAll('.add-cancel'),
+    categoryBtns: document.querySelectorAll('.category-btn')
 }
 
-btnMappings.quantityWrappers.forEach(wrapper =>{
+const inputMappings = {
+    previewImgInput: document.querySelector('.preview-img-input'),
+    autoSelectSubmit: document.querySelector('.on-change-select')
+}
+
+const elementMapping = {
+    previewImg: document.querySelectorAll('.preview-img')
+}
+
+const modalBinders = {
+    expansionWindows: document.querySelectorAll('.expansion-wrapper'),
+    quantityWrappers: document.querySelectorAll('.quantity-wrapper'),
+    searchBars: document.querySelectorAll('.search-bar'),
+    pageBars: document.querySelectorAll('.pages-bar ul'),
+}
+
+if(inputMappings.previewImgInput){
+    inputMappings.previewImgInput.addEventListener('change', ()=>{
+        const image = document.querySelector('.preview-img');
+        image.style.display = 'block';
+        const value = inputMappings.previewImgInput.value;
+        image.setAttribute('src', value);
+    })
+}
+
+if(inputMappings.autoSelectSubmit){
+    const selectInput = inputMappings.autoSelectSubmit;
+    selectInput.addEventListener('change', ()=>{
+        const input = document.getElementById('orderBy');
+        input.value = selectInput.value;
+        document.querySelector('.auto-submit').submit();
+    })
+}
+
+btnMappings.categoryBtns.forEach(btn =>{
+    btn.addEventListener('click', ()=>{
+        const input = document.getElementById('category-id');
+        document.querySelector('input[data-result-hook="1"]').value = '1';
+        input.value = btn.getAttribute('data-value');
+        document.querySelector('.auto-submit').submit();
+    })
+})
+
+elementMapping.previewImg.forEach(img =>{
+    img.addEventListener('error', ()=>{
+        img.style.display = 'none';
+    })
+})
+
+modalBinders.expansionWindows.forEach(window => {
+    const button = window.querySelector('.expansion-window button');
+    const expansionContainer = window.querySelector('.expansion-container');
+    
+    button.addEventListener('click', ()=>{
+        const isFolded = window.getAttribute('data-att-folded');
+        const foldIcon = window.querySelector('.expansion-window .fold-icon');
+        const container = window.querySelector('.content');
+
+        if(isFolded === "false")
+        {
+            container.style.display = 'none';
+            window.setAttribute('data-att-folded', true);
+            expansionContainer.classList.add('closed');
+            foldIcon.classList.remove('rotate180');
+        }
+        else {
+            window.setAttribute('data-att-folded', false);
+            expansionContainer.classList.remove('closed')
+            foldIcon.classList.add('rotate180');
+            container.style.display = 'flex';
+        }
+    })
+})
+
+modalBinders.searchBars.forEach(bar => {
+    const clearBtn = bar.querySelector('.clear');
+    if(clearBtn){
+        clearBtn.addEventListener('click', (e)=>{
+            e.preventDefault();
+            const input = bar.querySelector('.wrapper input[type="text"]');
+            input.value = "";
+        })
+    }
+})
+
+modalBinders.quantityWrappers.forEach(wrapper =>{
     const addButton = wrapper.querySelector('.btn-add');
     const subtractButton = wrapper.querySelector('.btn-subtract');
     const inputElement = wrapper.querySelector('.num-input');
-  
+    inputElement.value = 0;
     addButton.addEventListener('click', function(e) {
       if(e) {
           e.preventDefault();
@@ -25,29 +108,55 @@ btnMappings.quantityWrappers.forEach(wrapper =>{
 
 })
 
-btnMappings.cardOpenFormBtn.forEach(btn =>{
-    btn.addEventListener('click', (e)=>{
-        const id = e.target.parentNode.parentNode.parentNode.id;
-        const selector = `#${id} form`;
-        const form = document.querySelector(selector);
-        e.target.style.display = 'none';
-        form.style.display = 'block';
-    })
-})
+modalBinders.pageBars.forEach(bar => {
+    const hook = bar.getAttribute('data-result-hook');
+    let currentPage = Number(bar.getAttribute('data-current-page'));
+    const lastPage = bar.getAttribute('data-last-page');
 
-btnMappings.cardAddCancel.forEach(btn => {
-    btn.addEventListener('click', (e)=>{
-        e.preventDefault();
-        const id = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.id;
-        const card = document.getElementById(id);
-        const form = card.querySelector('form');
-        const openFormBtn = card.querySelector('.open-form');
+    const startBtn = bar.querySelector('.page-start');
+    const endBtn = bar.querySelector('.page-end');
 
-        form.style.display = 'none';
-        openFormBtn.style.display = 'flex';
+    startBtn.addEventListener('click', ()=>{
+        const value = startBtn.getAttribute('data-page');
+        changePage(value);
     })
+
+    endBtn.addEventListener('click', ()=>{
+        const value = endBtn.getAttribute('data-page');
+        changePage(value);
+    })
+
+    bar.querySelector('.page-next').addEventListener('click', ()=>{
+        let value = currentPage + 1;
+        if(value > lastPage){
+            value = lastPage;
+        }
+
+        changePage(value);
+    })
+
+    bar.querySelector('.page-back').addEventListener('click', ()=>{
+        let value = currentPage - 1;
+        if(value < 1){
+            value = 1;
+        }
+
+        changePage(value);
+    })
+
+    bar.querySelectorAll('.page-option').forEach(btn =>{
+        btn.addEventListener('click', ()=>{
+            const value = btn.getAttribute('data-page');
+            changePage(value);
+        })
+    })
+
+    function changePage(page){
+        const resultInput = document.querySelector(`input[data-result-hook="${hook}"]`);
+        resultInput.value = page;
+        document.querySelector('.auto-submit').submit();
+    }
 })
-function testHandler(){}
 
 function createElement(type, content, parentNode, classes, id, useInnerHtml){
     const element = document.createElement(type);

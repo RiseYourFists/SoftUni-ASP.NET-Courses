@@ -1,19 +1,20 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using static WebShop.Services.Utilities.GlobalVariables;
+using WebShop.Core.Utilities.GlobalVariables;
+using static WebShop.Core.Utilities.Validation.AccountUserConstants;
 
 namespace WebShop.Services.Models
 {
     public class RegisterViewModel
     {
         [Required]
-        [MinLength(AttributeValidations.AccountUser.FirstNameMinLength)]
-        [MaxLength(AttributeValidations.AccountUser.FirstNameMaxLength)]
+        [MinLength(FirstNameMinLength)]
+        [MaxLength(FirstNameMaxLength)]
         public string FirstName { get; set; } = null!;
 
         [Required]
-        [MinLength(AttributeValidations.AccountUser.LastNameMinLength)]
-        [MaxLength(AttributeValidations.AccountUser.FirstNameMaxLength)]
+        [MinLength(LastNameMinLength)]
+        [MaxLength(FirstNameMaxLength)]
         public string LastName { get; set; } = null!;
 
         [Required]
@@ -33,8 +34,8 @@ namespace WebShop.Services.Models
         public string RetypePassword { get; set; } = null!;
 
         [Required]
-        [MinLength(AttributeValidations.AccountUser.UserNameMinLength)]
-        [MaxLength(AttributeValidations.AccountUser.UserNameMaxLength)]
+        [MinLength(UserNameMinLength)]
+        [MaxLength(UserNameMaxLength)]
         public string UserName { get; set; } = null!;
 
     }

@@ -1,20 +1,19 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using static WebShop.Services.Utilities.GlobalVariables.AttributeValidations;
+using static WebShop.Core.Utilities.Validation.AccountUserConstants;
 
 namespace WebShop.Core.Data.Models.AccountModels
 {
     public class ApplicationUser : IdentityUser
     {
         [Required]
-        [StringLength(AccountUser.FirstNameMaxLength)]
+        [StringLength(FirstNameMaxLength)]
         [Comment("User first name")]
         public string FirstName { get; set; } = null!;
 
         [Required]
-        [StringLength(AccountUser.LastNameMaxLength)]
+        [StringLength(LastNameMaxLength)]
         [Comment("User last name")]
         public string LastName { get; set; } = null!;
 

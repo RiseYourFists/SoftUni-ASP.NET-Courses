@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../wwwroot/favicon.ico" />
+    <title>Sahara Web Shop</title>
+    <link rel="stylesheet" href="../../../wwwroot/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../../wwwroot/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="../../../wwwroot/css/reset.css">
+    <link rel="stylesheet" href="../../../wwwroot/css/custom-buttons.css">
+    <link rel="stylesheet" href="../../../wwwroot/css/custom-style.css">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <img class="home-logo" src="../../../wwwroot/shop-logo.png"/>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    
+                </ul>
+                <ul class="navbar-nav profile-nav">
+                    <li class="nav-item">
+                        <a asp-controller="Account" asp-action="Register">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-controller="Account" asp-action="Login">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<div>
+    <main role="main">
+        <!-- @model SearchProductViewModel; -->
+
+<!-- @{
+    ViewBag.Title = "Products";
+} -->
+
+<div class="item-collection-container">
+    <aside class="sidebar">
+        <nav>
+            <div data-att-folded="true" class="expansion-wrapper">
+                <div class="expansion-window">
+                    <button>
+                        <span class="fold-icon"><i class="fas fa-chevron-down"></i></span><strong>Categories</strong>
+                    </button>
+                </div>
+                <div class="expansion-container closed">
+                    <ul class="categories content" style="display: none;">
+                        <!-- @foreach (var category in Model.Categories)
+                        {
+                            <li><a @Url.Action("Index", "Home", new{ categoryId = @category.Id})>@category.Name</a></li>
+                        } -->
+                        <li><button class="category-btn" data-value="-1">All</button></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="order-by-wrapper">
+            <select class="on-change-select">
+                <option value="1">Alphabetical: (A-z)</option>
+                <option value="2">Price: Low ► High</option>
+                <option value="3">Price: High ► Low</option>
+            </select>
+        </div>
+    </aside>
+    <section class="main-content">
+        <div>
+            <div class="centered-wrapper">
+                <form method="get" class="search-bar auto-submit">
+                    <input type="text" hidden id="category-id">
+                    <input type="text" hidden id="page">
+                    <input type="text" hidden id="orderBy">
+                    <div class="wrapper">
+                        <input placeholder="Search..." type="text" name="search-term" id="">
+                        <button class="clear">x</button>
+                    </div>
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <h3>Search results:</h3>
+            <div class="product-result-list">
+                <div class="wrapper">
+                    <!-- @foreach (var product in Model.Products)
+                    {
+                        <partial model="@product" name="ProductTemplates/_ProductCardPartial" />
+                    } -->
+                </div>
+            </div>
+            <!--<div class="pages-bar">
+                <ul>
+                    <li><a class="page-back paging-btn">◄</a></li>
+                    <li><a class="paging-btn">1</a></li>
+                    <li><a class="paging-btn">2</a></li>
+                    <li><a class="paging-btn">3</a></li>
+                    <li><a class="paging-btn">4</a></li>
+                    <li><a class="paging-btn">5</a></li>
+                    <li><a class="page-next paging-btn">►</a></li>
+                </ul>
+            </div>-->
+        </div>
+    </section>
+</div>
+    </main>
+</div>
+
+<div class="main-bg-holder">
+    <img class="main-bg-img" src="../../../wwwroot/web-shop-bg.jpg"/>
+</div>
+
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2023 - WebShop.App - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+</footer>
+<script src="https://kit.fontawesome.com/3e5329ca1f.js" crossorigin="anonymous"></script>
+<script src="../../../wwwroot/js/site.js"></script>
+</body>
+</html>

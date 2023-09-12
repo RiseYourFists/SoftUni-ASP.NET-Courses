@@ -7,19 +7,18 @@ html {
 }
 
 .home-logo {
-  width: 60px;
+  width: 80px;
+  padding: 2px;
+  background-color: white;
+  border: 1px solid black;
   border-radius: 50%;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
 
 body{
   position: relative;
-  background-color: #cccccc;
+  background-color: rgb(21, 20, 20);
+  min-width: 457px;
 }
 
 a, header *, body *{
@@ -42,3 +41,4 @@ footer, header{
 footer{
   padding: 20px 0;
 }
+

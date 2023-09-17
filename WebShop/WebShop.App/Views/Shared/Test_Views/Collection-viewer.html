@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../wwwroot/favicon.ico" />
+    <title>Sahara Web Shop</title>
+    <link rel="stylesheet" href="../../../wwwroot/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../../wwwroot/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="../../../wwwroot/css/reset.css">
+    <link rel="stylesheet" href="../../../wwwroot/css/custom-buttons.css">
+    <link rel="stylesheet" href="../../../wwwroot/css/custom-style.css">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <img class="home-logo" src="../../../wwwroot/shop-logo.png"/>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    
+                </ul>
+                <ul class="navbar-nav profile-nav">
+                    <li class="nav-item">
+                        <a asp-controller="Account" asp-action="Register">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-controller="Account" asp-action="Login">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<div>
+    <main role="main">
+        <div class="main-content">
+            <h2 class="title">All</h2>
+            <table class="list-viewer">
+                <thead>
+                    <th class="main-col">Name</th>
+                    <th>Price</th>
+                    <th>Brand</th>
+                    <th>Category</th>
+                    <th class="action-col">Actions</th>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <td>Mouse</td>
+                        <td>$<span>37.19</span></td>
+                        <td>Razer</td>
+                        <td>Mouse</td>
+                        <td class="action-list">
+                            <button class="unfold fas fa-cogs"></button>
+                            <div class="window">
+                                <div class="opt-header">
+                                    <span>Options</span>
+                                    <button class="cus-btn cus-btn-cancel unfold-cancel"></button>
+                                </div>
+                                <a class="cus-btn cus-btn-info">View</a>
+                                <a class="cus-btn cus-btn-edit">Edit</a>
+                                <a class="cus-btn cus-btn-delete">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mouse</td>
+                        <td>$<span>37.19</span></td>
+                        <td>Razer</td>
+                        <td>Mouse</td>
+                        <td class="action-list">
+                            <button class="unfold fas fa-cogs"></button>
+                            <div class="window">
+                                <div class="opt-header">
+                                    <span>Options</span>
+                                    <button class="cus-btn cus-btn-cancel unfold-cancel"></button>
+                                </div>
+                                <a class="cus-btn cus-btn-info">View</a>
+                                <a class="cus-btn cus-btn-edit">Edit</a>
+                                <a class="cus-btn cus-btn-delete">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+
+<div class="main-bg-holder">
+    <img class="main-bg-img" src="../../../wwwroot/web-shop-bg.jpg"/>
+</div>
+
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2023 - WebShop.App - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+</footer>
+<script src="https://kit.fontawesome.com/3e5329ca1f.js" crossorigin="anonymous"></script>
+<script src="../../../wwwroot/js/site.js"></script>
+</body>
+</html>

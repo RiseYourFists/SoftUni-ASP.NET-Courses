@@ -16,9 +16,10 @@ const modalBinders = {
     quantityWrappers: document.querySelectorAll('.quantity-wrapper'),
     searchBars: document.querySelectorAll('.search-bar'),
     pageBars: document.querySelectorAll('.pages-bar ul'),
+    actionLists: document.querySelectorAll('.action-list')
 }
 
-if(inputMappings.previewImgInput){
+if(inputMappings.previewImgInput){ /*Custom functionality */
     inputMappings.previewImgInput.addEventListener('change', ()=>{
         const image = document.querySelector('.preview-img');
         image.style.display = 'block';
@@ -27,7 +28,7 @@ if(inputMappings.previewImgInput){
     })
 }
 
-if(inputMappings.autoSelectSubmit){
+if(inputMappings.autoSelectSubmit){ /* Custom functionality*/
     const selectInput = inputMappings.autoSelectSubmit;
     selectInput.addEventListener('change', ()=>{
         const input = document.getElementById('orderBy');
@@ -36,7 +37,7 @@ if(inputMappings.autoSelectSubmit){
     })
 }
 
-btnMappings.categoryBtns.forEach(btn =>{
+btnMappings.categoryBtns.forEach(btn =>{ /*Custom functionality */
     btn.addEventListener('click', ()=>{
         const input = document.getElementById('category-id');
         document.querySelector('input[data-result-hook="1"]').value = '1';
@@ -45,13 +46,13 @@ btnMappings.categoryBtns.forEach(btn =>{
     })
 })
 
-elementMapping.previewImg.forEach(img =>{
+elementMapping.previewImg.forEach(img =>{ /*Default style modification */
     img.addEventListener('error', ()=>{
         img.style.display = 'none';
     })
 })
 
-modalBinders.expansionWindows.forEach(window => {
+modalBinders.expansionWindows.forEach(window => { /*Expanding window script */
     const button = window.querySelector('.expansion-window button');
     const expansionContainer = window.querySelector('.expansion-container');
     
@@ -76,7 +77,7 @@ modalBinders.expansionWindows.forEach(window => {
     })
 })
 
-modalBinders.searchBars.forEach(bar => {
+modalBinders.searchBars.forEach(bar => { /*Searchbar script */
     const clearBtn = bar.querySelector('.clear');
     if(clearBtn){
         clearBtn.addEventListener('click', (e)=>{
@@ -87,7 +88,7 @@ modalBinders.searchBars.forEach(bar => {
     }
 })
 
-modalBinders.quantityWrappers.forEach(wrapper =>{
+modalBinders.quantityWrappers.forEach(wrapper =>{ /*Number input script*/
     const addButton = wrapper.querySelector('.btn-add');
     const subtractButton = wrapper.querySelector('.btn-subtract');
     const inputElement = wrapper.querySelector('.num-input');
@@ -108,7 +109,7 @@ modalBinders.quantityWrappers.forEach(wrapper =>{
 
 })
 
-modalBinders.pageBars.forEach(bar => {
+modalBinders.pageBars.forEach(bar => { /*Pagination script*/
     const hook = bar.getAttribute('data-result-hook');
     let currentPage = Number(bar.getAttribute('data-current-page'));
     const lastPage = bar.getAttribute('data-last-page');
@@ -158,6 +159,50 @@ modalBinders.pageBars.forEach(bar => {
     }
 })
 
+modalBinders.actionLists.forEach(list => {
+    const unfoldBtn = list.querySelector('.unfold');
+    const window = list.querySelector('.window');
+
+    unfoldBtn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        modalBinders.actionLists.forEach(list => {
+            list.querySelector('.window').style = '';
+        })
+
+        let totalHeight = 0;
+        window.querySelectorAll('.window > *').forEach(element => {
+            totalHeight += element.offsetHeight - 0.2;
+        });
+
+        window.style.height = `${totalHeight}px`;
+        const closeBtn = window.querySelector('.unfold-cancel');
+
+        closeBtn.addEventListener('click', ()=>{
+            window.style = '';
+        })
+
+        const body = document.querySelector('body');
+        body.addEventListener('click', outsideClickHandler);
+
+        function outsideClickHandler(e) {
+            
+            const boxRect = window.getBoundingClientRect();
+            const clickedX = e.clientX;
+            const clickedY = e.clientY;
+
+            if (
+                clickedX < boxRect.left ||
+                clickedX > boxRect.right ||
+                clickedY < boxRect.top ||
+                clickedY > boxRect.bottom
+            ) {
+                window.style = ''; // Reset style when clicked outside the box
+                body.removeEventListener('click', outsideClickHandler);
+            }
+        };
+    })
+})
+
 function createElement(type, content, parentNode, classes, id, useInnerHtml){
     const element = document.createElement(type);
     if(content && useInnerHtml){
@@ -182,5 +227,3 @@ function createElement(type, content, parentNode, classes, id, useInnerHtml){
     }
     return element;
 }
-
-

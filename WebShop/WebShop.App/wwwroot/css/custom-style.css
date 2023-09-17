@@ -224,6 +224,65 @@ input[type="number"]{
 
 /*################# CUSTOM TEMPLATES ################*/
 
+/* Custom shared list template*/
+
+.list-viewer{
+    width: 70%;
+    min-width:fit-content;
+    padding: 20px;
+    border-collapse:collapse;
+}
+
+.list-viewer thead{
+    border-bottom: 1px solid black;
+}
+
+.list-viewer .main-col{
+    width: 50%;
+}
+
+.list-viewer .action-list{
+    position: relative;
+}
+
+.list-viewer .action-list .window{
+    display: flex;
+    gap: 0.5rem;
+    overflow: hidden;
+}
+
+.list-viewer .action-list .unfold{
+    padding: 5px;
+    border-radius: 6px;
+    border: 1px solid black;
+    background-color: rgb(172, 172, 172);
+    display: none;
+}
+
+.list-viewer .action-list .opt-header{
+    display: none;
+    flex-wrap: nowrap;
+    gap: 10px;
+    background-color: #888888;
+    align-items: center;
+    padding: 5px 2px;
+    color: white;
+}
+
+.list-viewer .action-list .cus-btn-cancel::before{
+    margin-right: 0;
+}
+
+.list-viewer :is(td, th){
+    padding: 0.3rem 0.2rem;
+}
+
+tbody > tr:hover{
+    background-color: rgba(0,0,0, 0.1);
+}
+
+/*----------------------------*/
+
 /* Custom product card template*/
 
 .item-card{
@@ -825,6 +884,38 @@ input[type="number"]{
 
   .search-bar{
     width: 100%;
+  }
+
+  .list-viewer .action-list > .window{
+    height: 0;
+    gap: 0;
+    width: fit-content;
+    position: absolute;
+    z-index: 1;
+    flex-wrap: wrap;
+    background-color: white;
+    left: 0;
+    top: 0;
+    transition: height 0.2s ease-in-out;
+  }
+
+  .list-viewer .action-list .opt-header{
+    display: flex;
+  }
+
+  .list-viewer .action-list .opt-header span{
+    color: white;
+    font-weight: 500;
+  }
+
+  .list-viewer .action-list .window > .cus-btn{
+    border-radius: 0;
+    width: 100%;
+    border-top: 1px solid black;
+  }
+
+  .list-viewer .action-list .unfold{
+    display: block;
   }
 }
 /*###################################################*/

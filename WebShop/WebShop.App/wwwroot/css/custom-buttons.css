@@ -2,6 +2,7 @@
     --color-bg-btn-ok: rgb(0, 167, 0);
     --color-bg-btn-cancel: rgba(255, 67, 67, 0.928);
     --color-bg-btn-info: rgb(36, 138, 255);
+    --color-bg-btn-edit: rgb(255, 220, 0);
 
     --color-primary: black;
     --color-secondary: white;
@@ -40,11 +41,16 @@
     background-color: var(--color-bg-btn-info);
 }
 
+.cus-btn-edit{
+    background-color: var(--color-bg-btn-edit);
+}
+
 .cus-btn-add,
 .cus-btn-cancel,
 .cus-btn-delete,
 .cus-btn-info,
-.cus-btn-ok{
+.cus-btn-ok,
+.cus-btn-edit{
     color: var(--color-secondary); 
     padding: 5px;
     border-radius: 8px;
@@ -58,7 +64,8 @@
 .cus-btn-cancel:hover,
 .cus-btn-delete:hover,
 .cus-btn-info:hover,
-.cus-btn-ok:hover{
+.cus-btn-ok:hover,
+.cus-btn-edit:hover{
     color: var(--color-secondary);
     opacity: 0.9;
 }
@@ -67,7 +74,8 @@
 .cus-btn-cancel::before,
 .cus-btn-delete::before,
 .cus-btn-info::before,
-.cus-btn-ok::before{
+.cus-btn-ok::before,
+.cus-btn-edit::before{
     content: "";
     width: var(--ico-size);
     height: var(--ico-size);
@@ -96,5 +104,9 @@
 
 .cus-btn-add::before{
     background-image: url("./svg/add.svg");
+}
+
+.cus-btn-edit::before{
+    background-image: url("./svg/edit.svg");
 }
 

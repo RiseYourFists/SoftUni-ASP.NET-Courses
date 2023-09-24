@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using WebShop.Core.Data.Models.WebShopModels;
 using WebShop.Services.Models;
+using WebShop.Services.Models.PolymorphicCollections;
 using WebShop.Services.Models.ProductModels;
 
 namespace WebShop.Services.Utilities
@@ -16,17 +17,36 @@ namespace WebShop.Services.Utilities
         {
             this.CreateMap<Category, CategoryListModel>();
             this.CreateMap<Brand, BrandListModel>();
-            this.CreateMap<Product, ProductCardViewModel>()
-                .ForMember(dest => dest.Brand, opt =>
-                    opt.MapFrom(src => 
-                        src.Brand.Name));
             this.CreateMap<AddProductModel, Product>();
-            this.CreateMap<AddCategoryModel, Category>().ForMember(dest => dest.CategoryBannerImg,
-                opt => 
+            this.CreateMap<Category, CategoryPolyItem>();
+            this.CreateMap<Brand, BrandPolyItem>();
+
+            this.CreateMap<Product, ProductCardViewModel>()
+                .ForMember(dest => 
+                    dest.Brand, opt =>
+                    opt.MapFrom(src => src.Brand.Name));
+
+            this.CreateMap<AddCategoryModel, Category>()
+                .ForMember(dest => 
+                    dest.CategoryBannerImg,opt => 
                     opt.MapFrom(src => src.CategoryImage));
+
             this.CreateMap<AddBrandModel, Brand>()
-                .ForMember(dest => dest.BrandLogoImg, opt =>
+                .ForMember(dest => 
+                    dest.BrandLogoImg, opt =>
                     opt.MapFrom(src => src.BrandLogoImgUrl));
+
+            this.CreateMap<Product, ProductsPolyCollection>()
+                .ForMember(dest => 
+                    dest.CurrentPrice, opt => 
+                    opt.MapFrom(src => src.PromotionalPrice))
+                .ForMember(dest =>
+                    dest.BrandName, opt =>
+                    opt.MapFrom(src => src.Brand.Name))
+                .ForMember(dest => 
+                    dest.CategoryName, opt => 
+                    opt.MapFrom(src => src.Category.Name));
+
         }
     }
 }

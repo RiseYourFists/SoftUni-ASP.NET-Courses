@@ -6,6 +6,7 @@ using WebShop.Core.Data.Models.WebShopModels;
 using WebShop.Services.Contracts;
 using WebShop.Services.Enums;
 using WebShop.Services.Models;
+using WebShop.Services.Models.PolymorphicCollections;
 using WebShop.Services.Models.ProductModels;
 
 namespace WebShop.Services.Services
@@ -144,6 +145,46 @@ namespace WebShop.Services.Services
         public async Task<bool> CategoryExist(int categoryId)
         {
             return await repo.AllReadonly<Category>().AnyAsync(c => c.Id == categoryId);
+        }
+
+        public async Task<PolyListCollection> GetPolyList(ManageCategory type)
+        {
+            var polyObject = new PolyListCollection();
+
+            switch (type)
+            {
+
+                case ManageCategory.Brands:
+                    polyObject.Collection
+                        .AddRange(await repo
+                             .AllReadonly<Brand>()
+                             .ProjectTo<BrandPolyItem>(mapper.ConfigurationProvider)
+                             .ToListAsync());
+
+                    polyObject.Type = typeof(BrandPolyItem);
+                    break;
+                case ManageCategory.Categories: 
+                    polyObject.Collection
+                        .AddRange(await repo
+                            .AllReadonly<Category>()
+                            .ProjectTo<CategoryPolyItem>(mapper.ConfigurationProvider)
+                            .ToListAsync());
+
+                    polyObject.Type = typeof(CategoryPolyItem);
+                    break;
+                default:
+                    polyObject.Collection
+                        .AddRange(await repo
+                            .AllReadonly<Product>()
+                            .ProjectTo<ProductsPolyCollection>(mapper.ConfigurationProvider)
+                            .ToListAsync());
+
+                    polyObject.Type = typeof(ProductsPolyCollection);
+                    break;
+            }
+
+
+            return polyObject;
         }
     }
 }

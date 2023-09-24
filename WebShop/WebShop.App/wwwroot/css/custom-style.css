@@ -3,7 +3,7 @@
     --main-bg-color: rgba(255,255,255,0.8);
     --secondary-bg-color: rgba(60, 55, 55, 0.502);
     
-    --primary-color: darkgoldenrod;
+    --primary-color: rgba(159, 118, 14, 0.746);
     
     --primary-btn-gradient: linear-gradient(
         0deg,
@@ -61,8 +61,12 @@ input[type="number"]{
     color: black;
     text-align: center;
 }
-.quantity-wrapper input[type="number"]::-webkit-outer-spin-button,
-.quantity-wrapper input[type="number"]::-webkit-inner-spin-button{
+
+.quantity-wrapper 
+:is(
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button
+){
     display: none;
 }
 
@@ -275,10 +279,52 @@ input[type="number"]{
 
 .list-viewer :is(td, th){
     padding: 0.3rem 0.2rem;
+    padding-left: 0.7rem;
 }
 
 tbody > tr:hover{
-    background-color: rgba(0,0,0, 0.1);
+    background-color: rgba(207, 169, 3, 0.757);
+}
+
+.list-viewer tr{
+    background-color: var(--primary-color);
+}
+
+.list-viewer th{
+    font-size: 20px;
+}
+
+.list-viewer :is(td, span, th){
+    color: white;
+    text-shadow: 1px 2px black;
+}
+
+.list-viewer :is(td, span){
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.list-viewer .action-col{
+    display: grid;
+    padding-right: 20px;
+}
+
+.list-viewer .action-col .cus-btn-add::before{
+    margin-right: 0;
+}
+
+.list-viewer .action-col .cus-btn-add{
+    border-radius: 50%;
+    justify-self: end;
+}
+
+.category-col select{
+    width: 50%;
+    background-color: var(--secondary-bg-color);
+    color: white;
+    text-shadow: 1px 2px black;
+    border: none;
+    outline: none;
 }
 
 /*----------------------------*/
@@ -487,9 +533,13 @@ tbody > tr:hover{
     width: 100%;
 }
 
-.create-item-form > div input:not(input[type="number"]),
-.create-item-form > div select,
-.create-item-form > div textarea{
+.create-item-form > div 
+:is(
+    input:not(input[type="number"]),
+    select,
+    textarea
+    )
+{
     width: 50%;
 }
 
@@ -834,9 +884,17 @@ tbody > tr:hover{
     .sidebar{
         flex: 1 1 auto;
     }
+
+    .list-viewer .main-col{
+        width: 35%;
+    }
 }
 
 @media (width <= 1024px) {
+    .list-viewer .main-col{
+        width: 25%;
+    }
+
     .register-container .register-form{
       width: 60%;
     }
@@ -890,6 +948,8 @@ tbody > tr:hover{
     height: 0;
     gap: 0;
     width: fit-content;
+    max-height: 200px ;
+    overflow-y: auto;
     position: absolute;
     z-index: 1;
     flex-wrap: wrap;
@@ -897,6 +957,10 @@ tbody > tr:hover{
     left: 0;
     top: 0;
     transition: height 0.2s ease-in-out;
+  }
+
+  .list-viewer .main-col{
+    width: fit-content;
   }
 
   .list-viewer .action-list .opt-header{
@@ -917,5 +981,17 @@ tbody > tr:hover{
   .list-viewer .action-list .unfold{
     display: block;
   }
+
+}
+
+@media (width <= 500px) {
+
+    .list-viewer th{
+        font-size: 16px;
+    }
+    
+    .list-viewer :is(span, td){
+        font-size: 14px;
+    }
 }
 /*###################################################*/

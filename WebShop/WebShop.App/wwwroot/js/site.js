@@ -4,7 +4,7 @@
 
 const inputMappings = {
     previewImgInput: document.querySelector('.preview-img-input'),
-    autoSelectSubmit: document.querySelector('.on-change-select')
+    autoSelectSubmit: document.querySelectorAll('.on-change-select')
 }
 
 const elementMapping = {
@@ -28,14 +28,15 @@ if(inputMappings.previewImgInput){ /*Custom functionality */
     })
 }
 
-if(inputMappings.autoSelectSubmit){ /* Custom functionality*/
-    const selectInput = inputMappings.autoSelectSubmit;
-    selectInput.addEventListener('change', ()=>{
-        const input = document.getElementById('orderBy');
-        input.value = selectInput.value;
-        document.querySelector('.auto-submit').submit();
-    })
-}
+inputMappings.autoSelectSubmit.forEach( select => { /* Custom functionality*/
+
+select.addEventListener('change', ()=>{
+    let id = select.getAttribute('data-input')
+    const input = document.getElementById(id);
+    input.value = select.value;
+    document.querySelector('.auto-submit').submit();
+})
+})
 
 btnMappings.categoryBtns.forEach(btn =>{ /*Custom functionality */
     btn.addEventListener('click', ()=>{
@@ -171,7 +172,7 @@ modalBinders.actionLists.forEach(list => {
 
         let totalHeight = 0;
         window.querySelectorAll('.window > *').forEach(element => {
-            totalHeight += element.offsetHeight - 0.2;
+            totalHeight += element.offsetHeight - 0.25;
         });
 
         window.style.height = `${totalHeight}px`;

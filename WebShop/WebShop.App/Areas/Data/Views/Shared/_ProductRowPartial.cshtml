@@ -1,0 +1,20 @@
+﻿@model ProductsPolyCollection;
+
+<tr>
+    <td>@Model.Name</td>
+    <td>$<span>@Model.CurrentPrice</span></td>
+    <td>@Model.BrandName</td>
+    <td>@Model.CategoryName</td>
+    <td class="action-list">
+        <button class="unfold fas fa-cogs"></button>
+        <div class="window">
+            <div class="opt-header">
+                <span>Options</span>
+                <button class="cus-btn cus-btn-cancel unfold-cancel"></button>
+            </div>
+            <a class="cus-btn cus-btn-info">View</a>
+            <a class="cus-btn cus-btn-edit">Edit</a>
+            <a class="cus-btn cus-btn-delete">Delete</a>
+        </div>
+    </td>
+</tr>

@@ -1,5 +1,6 @@
 ﻿using WebShop.Services.Enums;
 using WebShop.Services.Models;
+using WebShop.Services.Models.PolymorphicCollections;
 using WebShop.Services.Models.ProductModels;
 
 namespace WebShop.Services.Contracts
@@ -29,6 +30,8 @@ namespace WebShop.Services.Contracts
         Task<bool> CategoryExist(int categoryId);
 
         Task<bool> BrandExist(int brandId);
+
+        Task<PolyListCollection> GetPolyList(ManageCategory type);
 
     }
 }

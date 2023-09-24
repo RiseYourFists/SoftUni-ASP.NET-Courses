@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Ganss.Xss;
+using Microsoft.EntityFrameworkCore;
 using WebShop.Core.Contracts;
 using WebShop.Core.Data;
 using WebShop.Core.Repository;
@@ -20,6 +21,7 @@ namespace WebShop.App.Extensions
 
             /*3-rd party services*/
             builder.AddAutoMapper(typeof(MappingProfile));
+            builder.AddScoped<IHtmlSanitizer, HtmlSanitizer>();
 
             /*Custom services*/
             builder.AddScoped<DbContext, ApplicationDbContext>();

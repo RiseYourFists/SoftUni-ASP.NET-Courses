@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ganss.Xss;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebShop.Core.Utilities.GlobalVariables;
@@ -16,10 +17,12 @@ namespace WebShop.App.Areas.Data.Controllers
     {
         private readonly IMapper mapper;
         private readonly IProductService service;
-        public StoreManagerController(IMapper _mapper, IProductService _service)
+        private readonly IHtmlSanitizer sanitizer;
+        public StoreManagerController(IMapper _mapper, IProductService _service, IHtmlSanitizer _sanitizer)
         {
             mapper = _mapper;
             service = _service;
+            sanitizer = _sanitizer;
         }
 
         public async Task<IActionResult> Index(ManageCategory category = ManageCategory.Products)
@@ -55,6 +58,8 @@ namespace WebShop.App.Areas.Data.Controllers
             {
                 ModelState.AddModelError(nameof(model.BrandId), ErrorMessages.BrandNotFound);
             }
+
+            model.Description = sanitizer.Sanitize(model.Description);
 
             if (!ModelState.IsValid)
             {

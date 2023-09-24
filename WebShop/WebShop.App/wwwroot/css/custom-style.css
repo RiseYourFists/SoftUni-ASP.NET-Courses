@@ -666,6 +666,10 @@ tbody > tr:hover{
     display: flex;
 }
 
+.inner-text-danger *{
+    color: red;
+}
+
 /*--------------*/
 
 /*Register page and log in page*/

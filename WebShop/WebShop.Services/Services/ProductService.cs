@@ -53,6 +53,7 @@ namespace WebShop.Services.Services
         {
             return await repo
                 .AllReadonly<Brand>()
+                .Where(b => !b.IsDeleted)
                 .ProjectTo<BrandListModel>(mapper.ConfigurationProvider)
                 .ToListAsync();
         }
@@ -61,6 +62,7 @@ namespace WebShop.Services.Services
         {
             return await repo
                 .AllReadonly<Category>()
+                .Where(c => !c.IsDeleted)
                 .ProjectTo<CategoryListModel>(mapper.ConfigurationProvider)
                 .ToListAsync();
         }
@@ -78,13 +80,15 @@ namespace WebShop.Services.Services
 
             if (categoryId != null && categoryId != -1)
             {
-                products = products.Where(p => p.CategoryId == categoryId);
+                products = products.Where(p => p.CategoryId == categoryId && !p.IsDeleted);
             }
 
             if (searchTerm != null)
             {
                 var term = searchTerm.ToLower();
-                products = products.Where(p
+                products = products
+                    .Where(p => !p.IsDeleted)
+                    .Where(p
                     => EF.Functions.Like(p.Name.ToLower(), term)
                     || EF.Functions.Like(p.Brand.Name.ToLower(), term));
             }
@@ -122,15 +126,17 @@ namespace WebShop.Services.Services
 
             if (categoryId != null && categoryId != -1)
             {
-                products = products.Where(p => p.CategoryId == categoryId);
+                products = products.Where(p => p.CategoryId == categoryId && !p.IsDeleted);
             }
 
             if (searchTerm != null)
             {
                 var term = searchTerm.ToLower();
-                products = products.Where(p
+                products = products
+                    .Where(p => !p.IsDeleted)
+                    .Where(p
                     => EF.Functions.Like(p.Name.ToLower(), term)
-                       || EF.Functions.Like(p.Brand.Name.ToLower(), term));
+                    || EF.Functions.Like(p.Brand.Name.ToLower(), term));
             }
 
             return await products.CountAsync();
@@ -139,50 +145,52 @@ namespace WebShop.Services.Services
 
         public async Task<bool> BrandExist(int brandId)
         {
-            return await repo.AllReadonly<Brand>().AnyAsync(b => b.Id == brandId);
+            return await repo
+                .AllReadonly<Brand>()
+                .AnyAsync(b => b.Id == brandId && b.IsDeleted);
         }
 
         public async Task<bool> CategoryExist(int categoryId)
         {
-            return await repo.AllReadonly<Category>().AnyAsync(c => c.Id == categoryId);
+            return await repo
+                .AllReadonly<Category>()
+                .AnyAsync(c => c.Id == categoryId && !c.IsDeleted);
         }
 
         public async Task<PolyListCollection> GetPolyList(ManageCategory type)
         {
             var polyObject = new PolyListCollection();
 
-            switch (type)
+            if (type == ManageCategory.Brands)
             {
+                polyObject.Collection.AddRange(await repo
+                    .AllReadonly<Brand>()
+                    .Where(b => !b.IsDeleted)
+                    .ProjectTo<BrandPolyItem>(mapper.ConfigurationProvider)
+                    .ToListAsync());
 
-                case ManageCategory.Brands:
-                    polyObject.Collection
-                        .AddRange(await repo
-                             .AllReadonly<Brand>()
-                             .ProjectTo<BrandPolyItem>(mapper.ConfigurationProvider)
-                             .ToListAsync());
-
-                    polyObject.Type = typeof(BrandPolyItem);
-                    break;
-                case ManageCategory.Categories: 
-                    polyObject.Collection
-                        .AddRange(await repo
-                            .AllReadonly<Category>()
-                            .ProjectTo<CategoryPolyItem>(mapper.ConfigurationProvider)
-                            .ToListAsync());
-
-                    polyObject.Type = typeof(CategoryPolyItem);
-                    break;
-                default:
-                    polyObject.Collection
-                        .AddRange(await repo
-                            .AllReadonly<Product>()
-                            .ProjectTo<ProductsPolyCollection>(mapper.ConfigurationProvider)
-                            .ToListAsync());
-
-                    polyObject.Type = typeof(ProductsPolyCollection);
-                    break;
+                polyObject.Type = typeof(BrandPolyItem);
             }
+            else if (type == ManageCategory.Categories)
+            {
+                polyObject.Collection.AddRange(await repo
+                    .AllReadonly<Category>()
+                    .Where(c => !c.IsDeleted)
+                    .ProjectTo<CategoryPolyItem>(mapper.ConfigurationProvider)
+                    .ToListAsync());
 
+                polyObject.Type = typeof(CategoryPolyItem);
+            }
+            else
+            {
+                polyObject.Collection.AddRange(await repo
+                    .AllReadonly<Product>()
+                    .Where(p => !p.IsDeleted)
+                    .ProjectTo<ProductsPolyCollection>(mapper.ConfigurationProvider)
+                    .ToListAsync());
+
+                polyObject.Type = typeof(ProductsPolyCollection);
+            }
 
             return polyObject;
         }

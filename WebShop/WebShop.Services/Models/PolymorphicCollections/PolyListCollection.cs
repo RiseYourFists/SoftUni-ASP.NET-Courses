@@ -12,6 +12,7 @@ namespace WebShop.Services.Models.PolymorphicCollections
         public PolyListCollection()
         {
             this.Collection = new List<IBasePolyCollection>();
+            this.Type = typeof(object);
         }
 
         public Type Type { get; set; }

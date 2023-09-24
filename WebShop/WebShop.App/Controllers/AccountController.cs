@@ -36,7 +36,7 @@ namespace WebShop.App.Controllers
 
             var user = await userManager.FindByEmailAsync(model.Email);
 
-            if (user == null && user.IsActive)
+            if (user == null || user.IsActive)
             {
                 ModelState.AddModelError("", "User not found!");
                 return View(model);

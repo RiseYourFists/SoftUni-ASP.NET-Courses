@@ -1,91 +1,100 @@
 ﻿@model PolyListCollection;
 <div class="main-content">
-    <h2 class="title">All</h2>
+    @{
+        var itemName = 
+            Model.Type.Name == nameof(ProductsPolyCollection)
+            ? "products"
+            : Model.Type.Name == nameof(CategoryPolyItem)
+            ? "categories"
+            : "brands";
+
+            <h2 class="title">All @itemName:</h2>
+    }
     <table class="list-viewer">
         <thead>
-            @{
-                if (Model.Type.Name == nameof(ProductsPolyCollection))
-                {
-                    <partial name="_ProductHeadPartial" />
-                }
-                else if (Model.Type.Name == nameof(CategoryPolyItem))
-                {
-                    <partial name="_CategoryHeadPartial" />
-                }
-                else
-                {
-                    <partial name="_BrandHeadPartial" />
-                }
+        @{
+            if (Model.Type.Name == nameof(ProductsPolyCollection))
+            {
+                <partial name="_ProductHeadPartial"/>
             }
+            else if (Model.Type.Name == nameof(CategoryPolyItem))
+            {
+                <partial name="_CategoryHeadPartial"/>
+            }
+            else
+            {
+                <partial name="_BrandHeadPartial"/>
+            }
+        }
         </thead>
         <tbody>
-            @{
-                foreach (var item in Model.Collection)
+        @{
+            foreach (var item in Model.Collection)
+            {
+                if (item is ProductsPolyCollection productItem)
                 {
-                    if (item is ProductsPolyCollection productItem)
-                    {
-                        <partial name="_ProductRowPartial" model="productItem" />
-                    }
-                    else if (item is CategoryPolyItem categoryItem)
-                    {
-                        <partial name="_CategoryRowPartial" model="categoryItem" />
-                    }
-                    else if (item is BrandPolyItem brandItem)
-                    {
-                        <partial name="_BrandRowPartial" model="brandItem" />
-                    }
+                    <partial name="_ProductRowPartial" model="productItem"/>
+                }
+                else if (item is CategoryPolyItem categoryItem)
+                {
+                    <partial name="_CategoryRowPartial" model="categoryItem"/>
+                }
+                else if (item is BrandPolyItem brandItem)
+                {
+                    <partial name="_BrandRowPartial" model="brandItem"/>
                 }
             }
+        }
 
-            <tr>
-                @{
+        <tr>
+            @{
 
-                    bool brand = false;
-                    bool category = false;
-                    bool product = false;
-                    var colspan = Model.Type.Name == nameof(ProductsPolyCollection) ? "colspan=4" : null;
+                bool brand = false;
+                bool category = false;
+                bool product = false;
+                var colspan = Model.Type.Name == nameof(ProductsPolyCollection) ? "colspan=4" : null;
 
-                    switch (Model.Type.Name)
-                    {
-                        case nameof(CategoryPolyItem):
-                            category = true;
-                            break;
-                        case nameof(BrandPolyItem):
-                            brand = true;
-                            break;
-                        default:
-                            product = true;
-                            break;
-                    }
-                    <td class="category-col" @colspan>
-                        <form method="GET" class="auto-submit">
-
-                            <input type="text" hidden id="category" name="category">
-                            <select class="on-change-select" name="type" id="" data-input="category">
-                                <option selected="@product" value="Products">Products</option>
-                                <option selected="@brand" value="Brands">Brands</option>
-                                <option selected="@category" value="Categories">Categories</option>
-                            </select>
-                        </form>
-                    </td>
-                    <td class="action-col" colspan="1">
-                        @{
-                            if (Model.Type.Name == nameof(ProductsPolyCollection))
-                            {
-                                <a class="cus-btn cus-btn-add" asp-action="AddProduct"></a>
-                            }
-                            else if (Model.Type.Name == nameof(CategoryPolyItem))
-                            {
-                                <a class="cus-btn cus-btn-add" asp-action="AddCategory"></a>
-                            }
-                            else
-                            {
-                                <a class="cus-btn cus-btn-add" asp-action="AddBrand"></a>
-                            }
-                        }
-                    </td>
+                switch (Model.Type.Name)
+                {
+                    case nameof(CategoryPolyItem):
+                        category = true;
+                        break;
+                    case nameof(BrandPolyItem):
+                        brand = true;
+                        break;
+                    default:
+                        product = true;
+                        break;
                 }
-            </tr>
+                <td class="category-col" @colspan>
+                    <form method="GET" class="auto-submit">
+
+                        <input type="text" hidden id="category" name="category">
+                        <select class="on-change-select" name="type" id="" data-input="category">
+                            <option selected="@product" value="Products">Products</option>
+                            <option selected="@brand" value="Brands">Brands</option>
+                            <option selected="@category" value="Categories">Categories</option>
+                        </select>
+                    </form>
+                </td>
+                <td class="action-col" colspan="1">
+                    @{
+                        if (Model.Type.Name == nameof(ProductsPolyCollection))
+                        {
+                            <a class="cus-btn cus-btn-add" asp-action="AddProduct"></a>
+                        }
+                        else if (Model.Type.Name == nameof(CategoryPolyItem))
+                        {
+                            <a class="cus-btn cus-btn-add" asp-action="AddCategory"></a>
+                        }
+                        else
+                        {
+                            <a class="cus-btn cus-btn-add" asp-action="AddBrand"></a>
+                        }
+                    }
+                </td>
+            }
+        </tr>
         </tbody>
     </table>
 </div>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../wwwroot/favicon.ico" />
+    <title>Sahara Web Shop</title>
+    <link rel="stylesheet" href="../../../wwwroot/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../../wwwroot/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="../../../wwwroot/css/reset.css">
+    <link rel="stylesheet" href="../../../wwwroot/css/custom-buttons.css">
+    <link rel="stylesheet" href="../../../wwwroot/css/custom-style.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img class="home-logo" src="../../../wwwroot/shop-logo.png" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+
+                    </ul>
+                    <ul class="navbar-nav profile-nav">
+                        <li class="nav-item">
+                            <a asp-controller="Account" asp-action="Register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Account" asp-action="Login">Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div>
+        <main role="main">
+            <div id="view-product" class="main-content">
+                <h2 class="title">Item</h2>
+                <div class="split-wrapper">
+                    <div class="generic-img-container">
+                        <img src="https://assets3.razerzone.com/O_B3MmFdPVfB9QXsVLZSwxa9K70=/1500x1000/https%3A%2F%2Fhybrismediaprod.blob.core.windows.net%2Fsys-master-phoenix-images-container%2Fhf6%2Fh6a%2F9636627480606%2F230822-cobra-pro-hyperpolling-dongle-1500x1000-1.jpg"
+                            alt="">
+                    </div>
+                    <div class="preview-content">
+                        <div class="">
+                            <strong>Category: </strong>
+                            <span>Computer Mouse</span>
+                        </div>
+                        <div class="">
+                            <strong>Brand: </strong>
+                            <span>Razer</span>
+                        </div>
+                        <div>
+                            <strong>Current Price: </strong>
+                            <span>53.99</span>$
+                        </div>
+                        <div>
+                            <strong>Regular Price: </strong>
+                            <span>53.99</span>$
+                        </div>
+                        <div>
+                            <strong>Quantity: </strong>
+                            <span>5000</span>
+                        </div>
+                        <fieldset>
+                            <legend><strong>Description</strong></legend>
+                            <p>Right-handed Symmetrical
+                                Razer™ HyperSpeed Wireless (2.4 GHz)Bluetooth
+                                Wired – Speedflex Cable USB Type C
+                                Up to 100 hours on Razer HyperSpeed Wireless (constant motion at 1000 Hz)
+                                Up to 33 hours with the Razer HyperPolling Wireless Dongle and Mouse Dock Pro* (constant motion at 4000 Hz)
+                                *both sold separately
+                                Up to 170 hours on Bluetooth
+                                Razer Chroma™ RGB (Scroll Wheel, Logo, Multi-zone Underglow)</p>
+                        </fieldset>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="main-bg-holder">
+        <img class="main-bg-img" src="../../../wwwroot/web-shop-bg.jpg" />
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - WebShop.App - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="https://kit.fontawesome.com/3e5329ca1f.js" crossorigin="anonymous"></script>
+    <script src="../../../wwwroot/js/site.js"></script>
+</body>
+
+</html>

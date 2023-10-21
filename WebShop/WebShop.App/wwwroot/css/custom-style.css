@@ -54,44 +54,114 @@ main{
 
 /*################# CUSTOM COMPONENTS ###############*/
 
-/*Custom quantity input*/
-input[type="number"]{
-    border: none;
-    width: 30px;
-    color: black;
-    text-align: center;
+/*Dropdown menu*/
+
+.dropdown-wrapper{
+    display: flex;
+    position: relative;
 }
 
-.quantity-wrapper 
-:is(
-    input[type="number"]::-webkit-outer-spin-button,
-    input[type="number"]::-webkit-inner-spin-button
-){
+.dropdown-btn {
+    display: flex;
+    text-align: center;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    position: relative;
+    padding: 5px;
+}
+
+.dropdown-btn::before{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.dropdown-btn:hover {
+    background-color: rgba(255, 255, 255, .9);
+}
+
+.dropdown-container {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    max-height: 0px;
+    z-index: 1;
+}
+
+.dropdown-container>* {
+    width: 100%;
+    background-color: #ccc;
+}
+
+.dropdown-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 5px;
+    padding: 8px;
+}
+
+.dropdown-content>* {
+    width: 100%;
+    border-radius: 0;
+    overflow-y: scroll;
+}
+
+.dropdown-btn:focus {
+    outline: green;
+}
+
+.dropdown-btn ~ .dropdown-container:focus-within,
+.dropdown-btn:focus ~ .dropdown-container{
+    max-height: 300px;
+}
+
+/*-------------*/
+
+/*Custom quantity input*/
+.num-input{
+    border: none;
+    width: 40px;
+    color: black;
+    text-align: center;
+    font-weight: 600;
+}
+
+.quantity-wrapper .num-input::-webkit-outer-spin-button,
+.quantity-wrapper .num-input::-webkit-inner-spin-button
+{
     display: none;
 }
 
-.quantity-wrapper input:focus{
-    outline: none;
-    box-shadow: .2px .5px .2px .5px skyblue;
-}
-
 .quantity-wrapper{
+    font-size: 1.5em;
     background-color: #8e8e8e;
     width: fit-content;
-    height: 20px;
-    padding: 0 5px;
-    border-radius: 4px;
+    height: fit-content;
+    padding: 0 12px;
+    border-radius: 12px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-content: center;
     overflow: hidden;
     gap: 5px;
+    border: 2px solid black;
 }
 
-.add, .subtract{
-    cursor: pointer;
+.btn-add, .btn-subtract{
     user-select: none;
+    font-weight: bold;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 /*---------------------*/
 
@@ -249,33 +319,7 @@ input[type="number"]{
     position: relative;
 }
 
-.list-viewer .action-list .window{
-    display: flex;
-    gap: 0.5rem;
-    overflow: hidden;
-}
 
-.list-viewer .action-list .unfold{
-    padding: 5px;
-    border-radius: 6px;
-    border: 1px solid black;
-    background-color: rgb(172, 172, 172);
-    display: none;
-}
-
-.list-viewer .action-list .opt-header{
-    display: none;
-    flex-wrap: nowrap;
-    gap: 10px;
-    background-color: #888888;
-    align-items: center;
-    padding: 5px 2px;
-    color: white;
-}
-
-.list-viewer .action-list .cus-btn-cancel::before{
-    margin-right: 0;
-}
 
 .list-viewer :is(td, th){
     padding: 0.3rem 0.2rem;
@@ -318,6 +362,10 @@ tbody > tr:hover{
     justify-self: end;
 }
 
+.list-viewer .dropdown-close::before{
+margin: 0;
+}
+
 .category-col select{
     width: 50%;
     background-color: var(--secondary-bg-color);
@@ -340,7 +388,7 @@ tbody > tr:hover{
     box-shadow: 1px 2px 5px 0px gray
 }
 
-.img-container{
+.item-card .img-container{
     width: 100%;
     height: 60%;
     display: flex;
@@ -350,7 +398,7 @@ tbody > tr:hover{
     background-color: #aaaaaa;
 }
 
-.img-container img{
+.item-card .img-container img{
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -367,7 +415,7 @@ tbody > tr:hover{
     align-content: center;
 }
 
-.img-container img:hover{
+.item-card .img-container img:hover{
     transform: scale(1.2);
 }
 
@@ -513,6 +561,22 @@ tbody > tr:hover{
 .centered-wrapper{
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+.generic-img-container{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 8/6;
+}
+
+.generic-img-container img{
+    object-fit:cover;
+    object-position: center;
+    width: 100%;
 }
 
 .create-item-form{
@@ -542,8 +606,6 @@ tbody > tr:hover{
 {
     width: 50%;
 }
-
-
 
 .space-between{
     justify-content: space-between!important;
@@ -629,6 +691,21 @@ tbody > tr:hover{
 /*###################################################*/
 
 /*Generic styles*/
+
+.centered-wrapper input:not(:is(.num-input, .search-bar input)), .centered-wrapper :is(textarea, select){
+    padding: 10px 5px;
+    border: 2px solid black;
+    border-radius: 4px;
+    outline: none;
+}
+
+.centered-wrapper :is(input:hover:not(.search-bar input), textarea:hover){
+    box-shadow: 2px 0px 6px 2px lightblue;
+}
+
+.brand-logo{
+    max-width: 300px;
+}
 
 .main-bg-img{
     width: 100%;
@@ -769,6 +846,52 @@ tbody > tr:hover{
 
 /*-------------*/
 
+/*Brand style*/
+.one-line-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+
+.one-line-wrapper .preview-img-container{
+    width: 300px;
+    flex: none;
+}
+
+.flex-form{
+    margin: 20px 20px 0px 20px;
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flex-form > *{
+    justify-content: space-between;
+}
+
+.flex-form > * > input{
+    width: 60%;
+    padding: 10px 5px;
+    border: 2px solid black;
+    border-radius: 4px;
+    outline: none;
+}
+
+.flex-form > * > input:focus{
+    box-shadow: 2px 0px 6px 2px lightblue;
+}
+
+.flex-form > * > label{
+    width: 40%;
+}
+
+.flex-form > * > p{
+    width: 100%;
+}
+
+/*-----------*/
+
 /*Product collection page styles*/
 
 .item-collection-container{
@@ -882,7 +1005,82 @@ tbody > tr:hover{
     background: var(--primary-btn-gradient-hover);
 }
 
+/*--------------------*/
+/*View Product Page*/
+
+#view-product .split-wrapper > div{
+    width: 50%;
+    font-size: 1.6rem;
+}
+
+#view-product .preview-content{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#view-product .preview-content > *{
+    width: 100%;
+}
+
+#view-product .preview-content fieldset{
+    position: relative;
+    margin-top: 25px;
+    border: 2px solid gray;
+    border-radius: 8px;
+}
+
+#view-product .preview-content legend{
+    position: absolute;
+    top: -20px;
+    left: -2px;
+    font-size: 18px;
+    margin-bottom: -10px;
+    background-color: white;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 4px 4px 6px 0px;
+    border: 1px solid black;
+}
+
+#view-product .preview-content fieldset p{
+    width: 100%;
+    resize: none;
+    padding: 25px 5px;
+    word-wrap: break-word;
+}
+
+#view-product .preview-content{
+    align-content: flex-start;
+}
+
+#view-product .title{
+    border-bottom: 2px solid rgb(85, 85, 255);
+    padding: 10px 0;
+}
+
+
+
+/*-----------------*/
+
 /*################## MEDIA QUERIES ##################*/
+
+@media (width >= 2560px) {
+    main{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
+    .main-content{
+        width: 60%;
+        height: fit-content;
+        flex: none;
+    }
+
+    .one-line-wrapper{
+        justify-content: center;
+    }
+}
 
 @media (width <= 1674px) {
     .sidebar{
@@ -895,6 +1093,14 @@ tbody > tr:hover{
 }
 
 @media (width <= 1024px) {
+    .flex-form{
+        width: 100%;
+    }
+
+    .one-line-wrapper{
+        justify-content: center;
+    }
+
     .list-viewer .main-col{
         width: 25%;
     }
@@ -929,6 +1135,17 @@ tbody > tr:hover{
     .create-item-form{
         width: 100%;
     }
+
+    #view-product .split-wrapper > div{
+        width: 100%;
+    }
+}
+
+@media (width <= 1000px) {
+    
+    .list-viewer .main-col{
+        width: fit-content;
+    }
 }
   
 @media (width <= 768px) {
@@ -948,47 +1165,13 @@ tbody > tr:hover{
     width: 100%;
   }
 
-  .list-viewer .action-list > .window{
-    height: 0;
-    gap: 0;
-    width: fit-content;
-    max-height: 200px ;
-    overflow-y: auto;
-    position: absolute;
-    z-index: 1;
-    flex-wrap: wrap;
-    background-color: white;
-    left: 0;
-    top: 0;
-    transition: height 0.2s ease-in-out;
-  }
-
-  .list-viewer .main-col{
-    width: fit-content;
-  }
-
-  .list-viewer .action-list .opt-header{
-    display: flex;
-  }
-
-  .list-viewer .action-list .opt-header span{
-    color: white;
-    font-weight: 500;
-  }
-
-  .list-viewer .action-list .window > .cus-btn{
-    border-radius: 0;
-    width: 100%;
-    border-top: 1px solid black;
-  }
-
-  .list-viewer .action-list .unfold{
-    display: block;
+  #view-product .split-wrapper > div{
+    font-size: 1.2rem;
   }
 
 }
 
-@media (width <= 500px) {
+@media (width <= 550px) {
 
     .list-viewer th{
         font-size: 16px;

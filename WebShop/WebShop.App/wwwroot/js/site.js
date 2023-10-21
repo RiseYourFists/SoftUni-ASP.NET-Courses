@@ -1,5 +1,6 @@
 ﻿const btnMappings = {
-    categoryBtns: document.querySelectorAll('.category-btn')
+    categoryBtns: document.querySelectorAll('.category-btn'),
+    dropdownCloseBtns: document.querySelectorAll('.dropdown-close')
 }
 
 const inputMappings = {
@@ -15,8 +16,7 @@ const modalBinders = {
     expansionWindows: document.querySelectorAll('.expansion-wrapper'),
     quantityWrappers: document.querySelectorAll('.quantity-wrapper'),
     searchBars: document.querySelectorAll('.search-bar'),
-    pageBars: document.querySelectorAll('.pages-bar ul'),
-    actionLists: document.querySelectorAll('.action-list')
+    pageBars: document.querySelectorAll('.pages-bar ul')
 }
 
 if(inputMappings.previewImgInput){ /*Custom functionality */
@@ -37,6 +37,8 @@ select.addEventListener('change', ()=>{
     document.querySelector('.auto-submit').submit();
 })
 })
+
+btnMappings.dropdownCloseBtns.forEach(btn =>{btn.addEventListener('click', (e)=>{e.target.blur()})})
 
 btnMappings.categoryBtns.forEach(btn =>{ /*Custom functionality */
     btn.addEventListener('click', ()=>{
@@ -94,6 +96,13 @@ modalBinders.quantityWrappers.forEach(wrapper =>{ /*Number input script*/
     const subtractButton = wrapper.querySelector('.btn-subtract');
     const inputElement = wrapper.querySelector('.num-input');
     inputElement.value = 0;
+
+    inputElement.addEventListener('change', ()=>{
+        if(inputElement.value === ''){
+            inputElement.value = 0;
+        }
+    });
+
     addButton.addEventListener('click', function(e) {
       if(e) {
           e.preventDefault();
@@ -158,50 +167,6 @@ modalBinders.pageBars.forEach(bar => { /*Pagination script*/
         resultInput.value = page;
         document.querySelector('.auto-submit').submit();
     }
-})
-
-modalBinders.actionLists.forEach(list => {
-    const unfoldBtn = list.querySelector('.unfold');
-    const window = list.querySelector('.window');
-
-    unfoldBtn.addEventListener('click', (e)=>{
-        e.stopPropagation();
-        modalBinders.actionLists.forEach(list => {
-            list.querySelector('.window').style = '';
-        })
-
-        let totalHeight = 0;
-        window.querySelectorAll('.window > *').forEach(element => {
-            totalHeight += element.offsetHeight - 0.25;
-        });
-
-        window.style.height = `${totalHeight}px`;
-        const closeBtn = window.querySelector('.unfold-cancel');
-
-        closeBtn.addEventListener('click', ()=>{
-            window.style = '';
-        })
-
-        const body = document.querySelector('body');
-        body.addEventListener('click', outsideClickHandler);
-
-        function outsideClickHandler(e) {
-            
-            const boxRect = window.getBoundingClientRect();
-            const clickedX = e.clientX;
-            const clickedY = e.clientY;
-
-            if (
-                clickedX < boxRect.left ||
-                clickedX > boxRect.right ||
-                clickedY < boxRect.top ||
-                clickedY > boxRect.bottom
-            ) {
-                window.style = ''; // Reset style when clicked outside the box
-                body.removeEventListener('click', outsideClickHandler);
-            }
-        };
-    })
 })
 
 function createElement(type, content, parentNode, classes, id, useInnerHtml){

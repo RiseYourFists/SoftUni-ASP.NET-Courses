@@ -5,13 +5,13 @@
 
 <div class="main-content space-between">
     <h2 class="title">Add Brand</h2>
-    <div class="split-wrapper  flex-direction-col">
+    <div class="one-line-wrapper">
             
         <div class="preview-img-container height-300">
             <img src="" alt="" class="preview-img">
         </div>
         <div asp-validation-summary="ModelOnly"></div>
-        <form method="post" class="create-item-form width-100-percent">
+        <form method="post" class="flex-form">
             <div class="centered-wrapper">
                 <label asp-for="Name">Brand name:</label>
                 <input asp-for="Name" type="text" >

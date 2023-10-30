@@ -33,5 +33,9 @@ namespace WebShop.Services.Contracts
 
         Task<PolyListCollection> GetPolyList(ManageCategory type);
 
+        Task<ViewProductModel> GetProduct(Guid id);
+
+        Task<bool> DoesProductExist(Guid id);
+
     }
 }

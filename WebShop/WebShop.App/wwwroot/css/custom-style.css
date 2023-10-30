@@ -106,20 +106,17 @@ main{
     padding: 8px;
 }
 
-.dropdown-content>* {
+
+.dropdown-content > * {
     width: 100%;
     border-radius: 0;
-    overflow-y: scroll;
-}
-
-.dropdown-btn:focus {
-    outline: green;
 }
 
 .dropdown-btn ~ .dropdown-container:focus-within,
 .dropdown-btn:focus ~ .dropdown-container{
     max-height: 300px;
 }
+
 
 /*-------------*/
 

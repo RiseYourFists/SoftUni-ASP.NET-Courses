@@ -112,5 +112,17 @@ namespace WebShop.App.Areas.Data.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> ViewProduct(Guid id)
+        {
+            if (!(await service.DoesProductExist(id)))
+            {
+                return View("Error");
+            }
+
+            var product = await service.GetProduct(id);
+
+            return View(product);
+        }
     }
 }

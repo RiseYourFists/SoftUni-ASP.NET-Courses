@@ -21,6 +21,11 @@ namespace WebShop.Services.Services
             repo = _repo;
         }
 
+        /// <summary>
+        /// Adds new brand to Brands table.
+        /// </summary>
+        /// <param name="model">Template model</param>
+        /// <returns>Task</returns>
         public async Task AddBrand(AddBrandModel model)
         {
             var brand = mapper.Map<Brand>(model);
@@ -30,6 +35,11 @@ namespace WebShop.Services.Services
             await repo.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Adds new category to Categories table.
+        /// </summary>
+        /// <param name="model">Template model</param>
+        /// <returns>Task</returns>
         public async Task AddCategory(AddCategoryModel model)
         {
             var category = mapper.Map<Category>(model);
@@ -39,6 +49,11 @@ namespace WebShop.Services.Services
             await repo.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Adds new product to Products table.
+        /// </summary>
+        /// <param name="model">Template model</param>
+        /// <returns>Task</returns>
         public async Task AddProduct(AddProductModel model)
         {
             model.PromotionalPrice = model.Price;
@@ -49,6 +64,10 @@ namespace WebShop.Services.Services
             await repo.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Gets all brands from Brands table.
+        /// </summary>
+        /// <returns>Task&lt;List&lt;BrandListModel&gt;&gt;</returns>
         public async Task<List<BrandListModel>> AllBrands()
         {
             return await repo
@@ -58,6 +77,10 @@ namespace WebShop.Services.Services
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// Gets all categories from Categories table.
+        /// </summary>
+        /// <returns>Task&lt;List&lt;CategoryListModel&gt;&gt;</returns>
         public async Task<List<CategoryListModel>> AllCategories()
         {
             return await repo
@@ -67,6 +90,20 @@ namespace WebShop.Services.Services
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// Gets all products from Product table.
+        /// </summary>
+        /// <param name="categoryId">Specifies from which category to be pulled.</param>
+        /// <param name="searchTerm">Checks for a containing word in the Name or the Brand of the product.</param>
+        /// <param name="orderBy">
+        /// Orders the products by:
+        ///     PriceAsc: Price ascending.
+        ///     PriceDesc: Price descending.
+        ///     Default: Ordered by product's name.
+        /// </param>
+        /// <param name="itemsPerPage">Defines how many items to be fetched in one page. Default = 12</param>
+        /// <param name="currPage">The new current page. Default = 1</param>
+        /// <returns>Task&lt;List&lt;ProductCardViewModel&gt;&gt;</returns>
         public async Task<List<ProductCardViewModel>> AllProducts(
             int? categoryId,
             string? searchTerm,
@@ -118,6 +155,12 @@ namespace WebShop.Services.Services
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// Gets the count of all fetched products.
+        /// </summary>
+        /// <param name="categoryId">Specifies from which category to be pulled.</param>
+        /// <param name="searchTerm">Checks for a containing word in the Name or the Brand of the product.</param>
+        /// <returns>Task&lt;int&gt;</returns>
         public async Task<int> FilteredProductsCount(
             int? categoryId,
             string? searchTerm)
@@ -142,7 +185,11 @@ namespace WebShop.Services.Services
             return await products.CountAsync();
         }
 
-
+        /// <summary>
+        /// Checks if a brand exists in Brands table.
+        /// </summary>
+        /// <param name="brandId">Unique key identifier.</param>
+        /// <returns>Task&lt;bool&gt;</returns>
         public async Task<bool> BrandExist(int brandId)
         {
             return await repo
@@ -150,6 +197,11 @@ namespace WebShop.Services.Services
                 .AnyAsync(b => b.Id == brandId && b.IsDeleted);
         }
 
+        /// <summary>
+        ///  Checks if a category exists in Categories table.
+        /// </summary>
+        /// <param name="categoryId">Unique key identifier.</param>
+        /// <returns>Task&lt;bool&gt;</returns>
         public async Task<bool> CategoryExist(int categoryId)
         {
             return await repo
@@ -157,6 +209,16 @@ namespace WebShop.Services.Services
                 .AnyAsync(c => c.Id == categoryId && !c.IsDeleted);
         }
 
+        /// <summary>
+        /// Gets a poly list that contains 3 types (BrandPolyItem, CategoryPolyItem, ProductsPolyCollection).
+        /// </summary>
+        /// <param name="type">
+        ///     Enum of 3 types:
+        ///         Brands: Gets a polymorphic collection of Brands.
+        ///         Categories: Gets a polymorphic collection of Categories.
+        ///         Products:  Gets a polymorphic collection of Products.
+        /// </param>
+        /// <returns>Task&lt;PolyListCollection&gt;</returns>
         public async Task<PolyListCollection> GetPolyList(ManageCategory type)
         {
             var polyObject = new PolyListCollection();
@@ -193,6 +255,34 @@ namespace WebShop.Services.Services
             }
 
             return polyObject;
+        }
+
+        /// <summary>
+        /// Gets a product by its id.
+        /// </summary>
+        /// <param name="id">Product id.</param>
+        /// <returns>Task&lt;ViewProductModel&gt;</returns>
+        public async Task<ViewProductModel> GetProduct(Guid id)
+        {
+            var product = await repo.AllReadonly<Product>()
+                .Where(p => p.Id == id && !p.IsDeleted)
+                .Include(p => p.Brand)
+                .Include(p => p.Category)
+                .ProjectTo<ViewProductModel>(mapper.ConfigurationProvider)
+                .FirstAsync();
+
+            return product;
+        }
+
+        /// <summary>
+        /// Checks if product exists.
+        /// </summary>
+        /// <param name="id">Product id</param>
+        /// <returns>Task&lt;bool&gt;</returns>
+        public async Task<bool> DoesProductExist(Guid id)
+        {
+            return await repo.AllReadonly<Product>()
+                .AnyAsync(p => p.Id == id);
         }
     }
 }

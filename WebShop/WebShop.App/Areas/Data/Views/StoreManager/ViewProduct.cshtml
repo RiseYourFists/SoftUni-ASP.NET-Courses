@@ -1,0 +1,39 @@
+﻿@model ViewProductModel;
+
+<div id="view-product" class="main-content">
+    <h2 class="title">@Model.Name</h2>
+    <div class="split-wrapper">
+        <div class="generic-img-container">
+            <img src="@Model.ProductImage" alt="product-image">
+        </div>
+        <div class="preview-content">
+            <div class="">
+                <strong>Category: </strong>
+                <span>@Model.Category</span>
+            </div>
+            <div class="">
+                <strong>Brand: </strong>
+                <span>@Model.Brand</span>
+            </div>
+            <div>
+                <strong>Current Price: </strong>
+                <span>@Model.PromotionalPrice</span>$
+            </div>
+            <div>
+                <strong>Regular Price: </strong>
+                <span>@Model.Price</span>$
+            </div>
+            <div>
+                <strong>Quantity: </strong>
+                <span>@Model.StockQuantity</span>
+            </div>
+            <fieldset>
+                <legend><strong>Description</strong></legend>
+                <p>
+                   @Model.Description
+                </p>
+            </fieldset>
+        </div>
+
+    </div>
+</div>

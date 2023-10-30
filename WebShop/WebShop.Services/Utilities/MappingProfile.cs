@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using WebShop.Core.Data.Models.WebShopModels;
 using WebShop.Services.Models;
 using WebShop.Services.Models.PolymorphicCollections;
@@ -20,6 +15,14 @@ namespace WebShop.Services.Utilities
             this.CreateMap<AddProductModel, Product>();
             this.CreateMap<Category, CategoryPolyItem>();
             this.CreateMap<Brand, BrandPolyItem>();
+
+            this.CreateMap<Product, ViewProductModel>()
+                .ForMember(dest =>
+                    dest.Brand, opt =>
+                    opt.MapFrom(src => src.Brand.Name))
+                .ForMember(dest =>
+                    dest.Category, opt =>
+                    opt.MapFrom(src => src.Category.Name));
 
             this.CreateMap<Product, ProductCardViewModel>()
                 .ForMember(dest => 

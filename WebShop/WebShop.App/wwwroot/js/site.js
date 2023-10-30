@@ -9,7 +9,8 @@ const inputMappings = {
 }
 
 const elementMapping = {
-    previewImg: document.querySelectorAll('.preview-img')
+    previewImg: document.querySelectorAll('.dropdown-wrapper'),
+    dropdownElements: document.querySelectorAll('.dropdown-wrapper')
 }
 
 const modalBinders = {
@@ -19,8 +20,8 @@ const modalBinders = {
     pageBars: document.querySelectorAll('.pages-bar ul')
 }
 
-if(inputMappings.previewImgInput){ /*Custom functionality */
-    inputMappings.previewImgInput.addEventListener('change', ()=>{
+if (inputMappings.previewImgInput) { /*Custom functionality */
+    inputMappings.previewImgInput.addEventListener('change', () => {
         const image = document.querySelector('.preview-img');
         image.style.display = 'block';
         const value = inputMappings.previewImgInput.value;
@@ -28,20 +29,24 @@ if(inputMappings.previewImgInput){ /*Custom functionality */
     })
 }
 
-inputMappings.autoSelectSubmit.forEach( select => { /* Custom functionality*/
+inputMappings.autoSelectSubmit.forEach(select => { /* Custom functionality*/
 
-select.addEventListener('change', ()=>{
-    let id = select.getAttribute('data-input')
-    const input = document.getElementById(id);
-    input.value = select.value;
-    document.querySelector('.auto-submit').submit();
+    select.addEventListener('change', () => {
+        let id = select.getAttribute('data-input')
+        const input = document.getElementById(id);
+        input.value = select.value;
+        document.querySelector('.auto-submit').submit();
+    })
 })
+
+btnMappings.dropdownCloseBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.target.blur()
+    })
 })
 
-btnMappings.dropdownCloseBtns.forEach(btn =>{btn.addEventListener('click', (e)=>{e.target.blur()})})
-
-btnMappings.categoryBtns.forEach(btn =>{ /*Custom functionality */
-    btn.addEventListener('click', ()=>{
+btnMappings.categoryBtns.forEach(btn => { /*Custom functionality */
+    btn.addEventListener('click', () => {
         const input = document.getElementById('category-id');
         document.querySelector('input[data-result-hook="1"]').value = '1';
         input.value = btn.getAttribute('data-value');
@@ -49,23 +54,33 @@ btnMappings.categoryBtns.forEach(btn =>{ /*Custom functionality */
     })
 })
 
-elementMapping.previewImg.forEach(img =>{ /*Default style modification */
-    img.addEventListener('error', ()=>{
+elementMapping.previewImg.forEach(img => { /*Default style modification */
+    img.addEventListener('error', () => {
         img.style.display = 'none';
+    })
+});
+
+elementMapping.dropdownElements.forEach(element => {
+    const container = element.querySelector('.dropdown-container');
+    const content = element.querySelector('.dropdown-content');
+    container.addEventListener('transitionend', () => {
+
+        if (container.clientHeight >= 300) {
+            content.style.overflowY = 'auto';
+        }
     })
 })
 
 modalBinders.expansionWindows.forEach(window => { /*Expanding window script */
     const button = window.querySelector('.expansion-window button');
     const expansionContainer = window.querySelector('.expansion-container');
-    
-    button.addEventListener('click', ()=>{
+
+    button.addEventListener('click', () => {
         const isFolded = window.getAttribute('data-att-folded');
         const foldIcon = window.querySelector('.expansion-window .fold-icon');
         const container = window.querySelector('.content');
 
-        if(isFolded === "false")
-        {
+        if (isFolded === "false") {
             container.style.display = 'none';
             window.setAttribute('data-att-folded', true);
             expansionContainer.classList.add('closed');
@@ -82,8 +97,8 @@ modalBinders.expansionWindows.forEach(window => { /*Expanding window script */
 
 modalBinders.searchBars.forEach(bar => { /*Searchbar script */
     const clearBtn = bar.querySelector('.clear');
-    if(clearBtn){
-        clearBtn.addEventListener('click', (e)=>{
+    if (clearBtn) {
+        clearBtn.addEventListener('click', (e) => {
             e.preventDefault();
             const input = bar.querySelector('.wrapper input[type="text"]');
             input.value = "";
@@ -91,30 +106,30 @@ modalBinders.searchBars.forEach(bar => { /*Searchbar script */
     }
 })
 
-modalBinders.quantityWrappers.forEach(wrapper =>{ /*Number input script*/
+modalBinders.quantityWrappers.forEach(wrapper => { /*Number input script*/
     const addButton = wrapper.querySelector('.btn-add');
     const subtractButton = wrapper.querySelector('.btn-subtract');
     const inputElement = wrapper.querySelector('.num-input');
     inputElement.value = 0;
 
-    inputElement.addEventListener('change', ()=>{
-        if(inputElement.value === ''){
+    inputElement.addEventListener('change', () => {
+        if (inputElement.value === '') {
             inputElement.value = 0;
         }
     });
 
-    addButton.addEventListener('click', function(e) {
-      if(e) {
-          e.preventDefault();
-      }
-      inputElement.value = parseInt(inputElement.value) + 1;
+    addButton.addEventListener('click', function (e) {
+        if (e) {
+            e.preventDefault();
+        }
+        inputElement.value = parseInt(inputElement.value) + 1;
     });
-  
-    subtractButton.addEventListener('click', function(e) {
-      if(e){
-          e.preventDefault();
-      }
-      inputElement.value = Math.max(parseInt(inputElement.value) - 1, 0);
+
+    subtractButton.addEventListener('click', function (e) {
+        if (e) {
+            e.preventDefault();
+        }
+        inputElement.value = Math.max(parseInt(inputElement.value) - 1, 0);
     });
 
 })
@@ -127,68 +142,68 @@ modalBinders.pageBars.forEach(bar => { /*Pagination script*/
     const startBtn = bar.querySelector('.page-start');
     const endBtn = bar.querySelector('.page-end');
 
-    startBtn.addEventListener('click', ()=>{
+    startBtn.addEventListener('click', () => {
         const value = startBtn.getAttribute('data-page');
         changePage(value);
     })
 
-    endBtn.addEventListener('click', ()=>{
+    endBtn.addEventListener('click', () => {
         const value = endBtn.getAttribute('data-page');
         changePage(value);
     })
 
-    bar.querySelector('.page-next').addEventListener('click', ()=>{
+    bar.querySelector('.page-next').addEventListener('click', () => {
         let value = currentPage + 1;
-        if(value > lastPage){
+        if (value > lastPage) {
             value = lastPage;
         }
 
         changePage(value);
     })
 
-    bar.querySelector('.page-back').addEventListener('click', ()=>{
+    bar.querySelector('.page-back').addEventListener('click', () => {
         let value = currentPage - 1;
-        if(value < 1){
+        if (value < 1) {
             value = 1;
         }
 
         changePage(value);
     })
 
-    bar.querySelectorAll('.page-option').forEach(btn =>{
-        btn.addEventListener('click', ()=>{
+    bar.querySelectorAll('.page-option').forEach(btn => {
+        btn.addEventListener('click', () => {
             const value = btn.getAttribute('data-page');
             changePage(value);
         })
     })
 
-    function changePage(page){
+    function changePage(page) {
         const resultInput = document.querySelector(`input[data-result-hook="${hook}"]`);
         resultInput.value = page;
         document.querySelector('.auto-submit').submit();
     }
 })
 
-function createElement(type, content, parentNode, classes, id, useInnerHtml){
+function createElement(type, content, parentNode, classes, id, useInnerHtml) {
     const element = document.createElement(type);
-    if(content && useInnerHtml){
+    if (content && useInnerHtml) {
         element.innerHTML = content;
     }
-    else{
-        if(content && type !== 'input'){
+    else {
+        if (content && type !== 'input') {
             element.textContent = content;
         }
-        if(content && type === 'input'){
+        if (content && type === 'input') {
             element.value = content;
         }
     }
-    if(classes && classes.length > 0){
+    if (classes && classes.length > 0) {
         element.classList.add(...classes);
     }
-    if(id){
+    if (id) {
         element.setAttribute('id', id);
     }
-    if(parentNode){
+    if (parentNode) {
         parentNode.appendChild(element);
     }
     return element;

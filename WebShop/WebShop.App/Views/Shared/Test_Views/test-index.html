@@ -89,9 +89,11 @@
                                 <div class="wrapper">
                                     <input placeholder="Search..." type="text" name="searchTerm" id="SearchTerm"
                                         value="">
-                                    <button class="clear">x</button>
+                                    <button class="clear fas fa-times"></button>
                                 </div>
-                                <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
+                                <div class="btn-holder">
+                                    <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
+                                </div>
                             </form>
                         </div>
                         <h3>Search results:</h3>
@@ -102,11 +104,12 @@
                                     <div class="img-container">
                                         <a href="">
                                             <img src="https://s13emagst.akamaized.net/products/47403/47402727/images/res_9205fa54f7297ff61aa491ffe4a6663b.jpg?width=450&amp;height=450&amp;hash=D6194482C07DF4FA36406CF5AA8DE6C7"
-                                                alt="">
+                                            alt="">
                                         </a>
                                     </div>
                                     <div class="card-content">
-                                        <span class="tag">399.89$<span class="actual-price"></span></span>
+                                        <span class="tag">399.89$</span>
+                                        <span class="actual-price">500.00$<hr></span>
                                         <div class="title">
                                             <strong>Monitor Gaming Sony INZONE M9 27", IPS, 4K, 144Hz, 1ms, DisplayHDR™
                                                 600, VRR, NVIDIA G-Sync, HDMI 2.</strong>
@@ -127,7 +130,7 @@
                                         </a>
                                     </div>
                                     <div class="card-content">
-                                        <span class="tag">39.40$<span class="actual-price"></span></span>
+                                        <span class="tag">39.40$</span>
                                         <div class="title">
                                             <strong>Razer Cobra</strong>
                                         </div>
@@ -147,7 +150,7 @@
                                         </a>
                                     </div>
                                     <div class="card-content">
-                                        <span class="tag">37.12$<span class="actual-price"></span></span>
+                                        <span class="tag">37.12$</span>
                                         <div class="title">
                                             <strong>Razer Viper</strong>
                                         </div>
@@ -162,12 +165,12 @@
                         </div>
                         <div class="pages-bar">
                             <ul data-result-hook="1" data-last-page="2" data-current-page="1">
-                                <li><button class="page-start paging-btn" data-page="1">◄◄</button></li>
-                                <li><button class="page-back paging-btn">◄</button></li>
-                                <li><button disabled="" class="paging-btn" data-page="1">1</button></li>
+                                <li><button class="page-start paging-btn fas fa-step-backward" data-page="1"></button></li>
+                                <li><button class="page-back paging-btn fas fa-caret-left"></button></li>
+                                <li><button disabled="" class="paging-btn selected" data-page="1">1</button></li>
                                 <li><button class="page-option paging-btn" data-page="2">2</button></li>
-                                <li><button class="page-next paging-btn">►</button></li>
-                                <li><button class="page-end paging-btn" data-page="2">►►</button></li>
+                                <li><button class="page-next paging-btn fas fa-caret-right"></button></li>
+                                <li><button class="page-end paging-btn fas fa-step-forward" data-page="2"></button></li>
                             </ul>
                         </div>
                     </div>

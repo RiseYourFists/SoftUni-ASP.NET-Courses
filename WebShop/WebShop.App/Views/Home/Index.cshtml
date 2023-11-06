@@ -44,9 +44,11 @@
                     <input type="text" hidden asp-for="OrderBy" name="orderBy" id="orderBy">
                     <div class="wrapper">
                         <input placeholder="Search..." type="text" asp-for="SearchTerm" name="searchTerm">
-                        <button class="clear">x</button>
+                        <button class="clear fas fa-times"></button>
                     </div>
-                    <button type="submit"><i class="fas fa-search"></i></button>
+                    <div class="btn-holder">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </div>
                 </form>
             </div>
             <h3>Search results:</h3>
@@ -61,11 +63,13 @@
             <div class="pages-bar">
                 @{
                     var pages = Model.ProductCount / Model.ItemsPerPage;
+                    var isDisabledBack = pages <= 1 || Model.CurrentPage == 1;
+                    var isDisabledForward = pages <= 1 || Model.CurrentPage == pages;
                     var currentPage = Model.CurrentPage;
                     <ul data-result-hook="1" data-last-page="@pages" data-current-page="@Model.CurrentPage">
 
-                        <li><button class="page-start paging-btn" data-page="1">◄◄</button></li>
-                        <li><button class="page-back paging-btn">◄</button></li>
+                        <li><button disabled="@isDisabledBack" class="page-start paging-btn fas fa-step-backward" data-page="1"></button></li>
+                        <li><button disabled="@isDisabledBack" class="page-back paging-btn fas fa-caret-left"></button></li>
                         @{
                             
                             for (var i =  currentPage - 1; i < currentPage; i++)
@@ -76,19 +80,19 @@
                                     continue;;
                                 }
                                
-                                <li><a class="page-option paging-btn" data-page="@i">@i</a></li>
+                                <li><button class="page-option paging-btn" data-page="@i">@i</button></li>
                             }
                         }
                         
-                        <li><button disabled class="paging-btn" data-page="@Model.CurrentPage">@Model.CurrentPage</button></li>
+                        <li><button disabled class="paging-btn selected" data-page="@Model.CurrentPage">@Model.CurrentPage</button></li>
                         @{
                             for (var i = currentPage + 1; i <= pages; i++)
                             {
-                                <li><a class="page-option paging-btn" data-page="@i">@i</a></li>
+                                <li><button class="page-option paging-btn" data-page="@i">@i</button></li>
                             }
                         }
-                        <li><button class="page-next paging-btn">►</button></li>
-                        <li><button class="page-end paging-btn" data-page="@pages">►►</button></li>
+                        <li><button disabled="@isDisabledForward" class="page-next paging-btn fas fa-caret-right"></button></li>
+                        <li><button disabled="@isDisabledForward" class="page-end paging-btn fas fa-step-forward" data-page="@pages"></button></li>
                     </ul>
                 }
             </div>

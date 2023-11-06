@@ -2,6 +2,7 @@
 using Ganss.Xss;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebShop.Core.Data.Models.WebShopModels;
 using WebShop.Core.Utilities.GlobalVariables;
 using WebShop.Services.Contracts;
 using WebShop.Services.Enums;
@@ -35,10 +36,11 @@ namespace WebShop.App.Areas.Data.Controllers
         [HttpGet]
         public async Task<IActionResult> AddProduct()
         {
-            var model = new AddProductModel();
-
-            model.Categories = await service.AllCategories();
-            model.Brands = await service.AllBrands();
+            var model = new AddProductModel
+            {
+                Categories = await service.AllCategories(),
+                Brands = await service.AllBrands()
+            };
 
             return View(model);
         }
@@ -117,12 +119,47 @@ namespace WebShop.App.Areas.Data.Controllers
         {
             if (!(await service.DoesProductExist(id)))
             {
-                return View("Error");
+                return View("Error", ErrorMessages.NotFound);
             }
 
             var product = await service.GetProduct(id);
 
             return View(product);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditProduct(Guid id)
+        {
+            var isExist = await service.DoesProductExist(id);
+
+            if (!isExist)
+            {
+                return View("Error", ErrorMessages.NotFound);
+            }
+
+            var model = await service.GetEditProduct(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditProduct(EditProductModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var isExist = await service.DoesProductExist(model.Id);
+
+            if (!isExist)
+            {
+                return View("Error", ErrorMessages.NotFound);
+            }
+
+            await service.PostEditProduct(model);
+
+            return RedirectToAction("Index");
         }
     }
 }

@@ -1,0 +1,84 @@
+﻿@model EditProductModel;
+
+@{
+    ViewBag.Title = "Edit product";
+}
+
+<div class="main-content space-between">
+    <h2 class="title">Edit Product</h2>
+    <div class="split-wrapper">
+
+        <div class="preview-img-container">
+            <img src="@Model.ProductImage" alt="img" class="preview-img">
+        </div>
+        <form method="post" class="create-item-form">
+            <input hidden="true" asp-for="Id" value="@Model.Id"/>
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="centered-wrapper">
+                <label for="Name">Product name:</label>
+                <input id="Name" type="text" asp-for="Name" value="@Model.Name">
+                <span asp-validation-for="Name"></span>
+            </div>
+            <div class="centered-wrapper">
+                <label for="Description">Description:</label>
+                <textarea id="Description" type="text" asp-for="Description" value="@Model.Description"></textarea>
+                <span asp-validation-for="Description"></span>
+            </div>
+            <div class="centered-wrapper">
+                <label for="Price">Price:</label>
+                <input id="Price" type="text" asp-for="Price" value="@Model.Price">
+                <span asp-validation-for="Price"></span>
+            </div>
+            <div class="centered-wrapper">
+                <label for="PromotionalPrice">Promotional Price:</label>
+                <input id="PromotionalPrice" type="text" asp-for="PromotionalPrice" value="@Model.PromotionalPrice">
+                <span asp-validation-for="PromotionalPrice"></span>
+            </div>
+            <div class="centered-wrapper">
+                <label for="Image">Image URL:</label>
+                <input class="preview-img-input" type="text" id="Image" asp-for="ProductImage" value="@Model.ProductImage">
+                <span asp-validation-for="ProductImage"></span>
+            </div>
+            <div class="centered-wrapper">
+                <label for="Brand">Brand:</label>
+                <select id="Brand" asp-for="BrandId" >
+                    @{
+                        foreach (var brand in @Model.Brands)
+                        {
+                            var isSelected = brand.Id == @Model.BrandId;
+                            <option selected="@isSelected" value="@brand.Id">@brand.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="BrandId"></span>
+            </div>
+            <div class="centered-wrapper">
+                <label for="Category">Category:</label>
+                <select id="Category" asp-for="CategoryId">
+                    @{
+                        foreach (var category in Model.Categories)
+                        {
+                            var isSelected = category.Id == Model.CategoryId;
+                            <option selected="@isSelected" value="@category.Id">@category.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="CategoryId"></span>
+            </div>
+            <div class="centered-wrapper">
+                <label for="num-input">Quantity:</label>
+                <div class="quantity-wrapper">
+                    <button class="btn-add">+</button>
+                    <input class="num-input" type="number" asp-for="StockQuantity" value="@Model.StockQuantity">
+                    <button class="btn-subtract">-</button>
+                </div>
+                <span asp-validation-for="StockQuantity"></span>
+            </div>
+            <div class="centered-wrapper">
+                <a class="cus-btn cus-btn-cancel" asp-action="Index">Cancel</a>
+                <button class="cus-btn cus-btn-ok">Submit</button>
+            </div>
+        </form>
+
+    </div>
+</div>

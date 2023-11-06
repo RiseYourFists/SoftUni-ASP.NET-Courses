@@ -21,12 +21,18 @@ const modalBinders = {
 }
 
 if (inputMappings.previewImgInput) { /*Custom functionality */
+    changeImg();
+
     inputMappings.previewImgInput.addEventListener('change', () => {
+        changeImg();
+    });
+    
+    function changeImg(){
         const image = document.querySelector('.preview-img');
         image.style.display = 'block';
         const value = inputMappings.previewImgInput.value;
         image.setAttribute('src', value);
-    })
+    }
 }
 
 inputMappings.autoSelectSubmit.forEach(select => { /* Custom functionality*/
@@ -97,20 +103,37 @@ modalBinders.expansionWindows.forEach(window => { /*Expanding window script */
 
 modalBinders.searchBars.forEach(bar => { /*Searchbar script */
     const clearBtn = bar.querySelector('.clear');
-    if (clearBtn) {
-        clearBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const input = bar.querySelector('.wrapper input[type="text"]');
-            input.value = "";
-        })
-    }
+    const input = bar.querySelector('.wrapper input[type="text"]');
+    
+    clearBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        input.value = "";
+        clearBtn.style.display = 'none';
+    })
+
+    input.addEventListener('keyup', ()=>{
+        if(input.value.length > 0){
+            clearBtn.style.display = 'flex';
+            return;
+        }
+        
+        clearBtn.style.display = 'none';
+    })
 })
 
 modalBinders.quantityWrappers.forEach(wrapper => { /*Number input script*/
     const addButton = wrapper.querySelector('.btn-add');
     const subtractButton = wrapper.querySelector('.btn-subtract');
     const inputElement = wrapper.querySelector('.num-input');
-    inputElement.value = 0;
+    resize();
+
+    if(inputElement.value === ''){
+        inputElement.value = 0;
+    }
+
+    inputElement.addEventListener('keyup', ()=>{
+        resize();
+    })
 
     inputElement.addEventListener('change', () => {
         if (inputElement.value === '') {
@@ -123,6 +146,7 @@ modalBinders.quantityWrappers.forEach(wrapper => { /*Number input script*/
             e.preventDefault();
         }
         inputElement.value = parseInt(inputElement.value) + 1;
+        resize();
     });
 
     subtractButton.addEventListener('click', function (e) {
@@ -130,7 +154,15 @@ modalBinders.quantityWrappers.forEach(wrapper => { /*Number input script*/
             e.preventDefault();
         }
         inputElement.value = Math.max(parseInt(inputElement.value) - 1, 0);
+        resize();
     });
+
+    function resize(){
+        if(inputElement.value === '') return;
+        let width = inputElement.value.length * 16;
+        width =  Math.max(40, Math.min(200, width));
+        inputElement.style.width = width + 'px';
+    }
 
 })
 

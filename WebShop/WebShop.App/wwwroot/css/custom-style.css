@@ -4,6 +4,13 @@
     --secondary-bg-color: rgba(60, 55, 55, 0.502);
     
     --primary-color: rgba(159, 118, 14, 0.746);
+    --primary-color-hover: rgba(159, 118, 14, 0.546);
+    --primary-color-gradient: linear-gradient(
+        rgba(159, 118, 14, 0.546),
+        rgba(159, 118, 14, 0.746),
+        rgba(159, 118, 14, 0.546)
+    );
+
     
     --primary-btn-gradient: linear-gradient(
         0deg,
@@ -124,6 +131,8 @@ main{
 .num-input{
     border: none;
     width: 40px;
+    min-width: 40px;
+    max-width: 150px;
     color: black;
     text-align: center;
     font-weight: 600;
@@ -143,7 +152,7 @@ main{
     padding: 0 12px;
     border-radius: 12px;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: space-between;
     align-content: center;
     overflow: hidden;
@@ -167,6 +176,7 @@ main{
 .search-bar{
     display: flex;
     width: 50%;
+    height: 54px;
     border: 1px solid black;
     border-radius: 24px;
     overflow: hidden;
@@ -184,23 +194,47 @@ main{
     width: 90%;
     display: flex;
     position: relative;
-    margin-right: 5px;
 }
 
-.clear{
+.search-bar .clear{
+    width: 25px;
+    height: 25px;
     position: absolute;
-    right: 10px;
-    top: 8px;
+    right: 5%;
+    top: 50%;
+    transform: translate(50%, -50%);
     font-size: 20px;
-    font-weight: 700;
+    border-radius: 50%;
+    display: none;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
 }
 
-.search-bar > button{
-    padding: 0 10px;
+.clear:hover{
+    background-color: lightgray;
+}
+
+.search-bar > .btn-holder{
+    width: 10%;
+    height: 100%;
+    margin: auto;
+    font-size: 20px;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     justify-content: center;
-    align-content: center;
+}
+
+.search-bar > .btn-holder > button{
+    width: 100%;
+    height: 100%;
+}
+
+.fas.fa-search{
+    color: white;
+    text-align: center;
+    text-shadow: 1px 1px 1px black;
 }
 
 /*-----------------*/
@@ -379,10 +413,10 @@ margin: 0;
 .item-card{
     width: 250px;
     height: 450px;
-    overflow: hidden;
     border-radius: 6px;
     background-color: lightgray;
-    box-shadow: 1px 2px 5px 0px gray
+    box-shadow: 1px 2px 5px 0px gray;
+    position: relative;
 }
 
 .item-card .img-container{
@@ -393,6 +427,8 @@ margin: 0;
     justify-content: center;
     overflow: hidden;
     background-color: #aaaaaa;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
 }
 
 .item-card .img-container img{
@@ -410,6 +446,7 @@ margin: 0;
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
+    overflow: hidden;
 }
 
 .item-card .img-container img:hover{
@@ -424,7 +461,6 @@ margin: 0;
     justify-content: space-around;
     padding: 20px 15px;
     padding-bottom: 5px;
-    position: relative;
 }
 
 .item-card .title{
@@ -459,11 +495,12 @@ margin: 0;
     display: block;
     width: 90%;
     text-align: center;
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 1.3rem;
     color: white;
-    text-shadow: 1px 1px black;
-    background: rgb(255,255,255);
-    background: var(--primary-btn-gradient);
+    text-shadow: 1px 1px 1px black;
+    background: var(--primary-color);
+    background: var(--primary-color-gradient);
     padding: 5px;
     text-decoration: none;
     border: 1px solid rgb(192, 192, 192);
@@ -472,8 +509,7 @@ margin: 0;
 
 .details-secondary:hover{
     color: rgba(255,255,255,0.9);
-    background: rgb(255,255,255);
-    background: var(--primary-btn-gradient-hover);
+    background-color: var(--primary-color-hover);
 }
 
 .card-content p{
@@ -485,15 +521,66 @@ margin: 0;
 }
 
 .card-content .actual-price{
-    font-size: 16px;
-    font-weight: 300;
+    display: inline-block;
+    box-shadow: 1px 1px 5px black;
+    width: auto;
+	height: 38px;
+	
+	background-color: #979797;
+	-webkit-border-radius: 3px 4px 4px 3px;
+	-moz-border-radius: 3px 4px 4px 3px;
+	border-radius: 2.4px 4px 4px 2.4px;
+	
+	border-left: 1px solid #979797;
+
+	/* This makes room for the triangle */
+	
+	position: absolute;
+    top: 55px;
+    right: -10px;
+    z-index: 1;
+	color: white;
+	font-weight: 300;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 18px;
+	line-height: 38px;
+
+	padding: 0 5px 0 5px;
+}
+
+.card-content .actual-price::before{
+    content: "";
+	position: absolute;
+	display: block;
+	left: -19px;
+	width: 0;
+	height: 0;
+	border-top: 19px solid transparent;
+	border-bottom: 19px solid transparent;
+	border-right: 19px solid #979797;
+}
+
+.card-content .actual-price::after{
+    content: "";
+	background-color: white;
+	border-radius: 50%;
+	width: 4px;
+	height: 4px;
+	display: block;
+	position: absolute;
+	left: -9px;
+	top: 17px;
+}
+
+.card-content .actual-price hr{
+    background-color: red;
+    opacity: 0.7;
+    height: 2px;
     position: absolute;
-    right: -5px;
-    top: -10px;
-    transform: rotate(36deg);
-    text-decoration: line-through;
-    text-decoration-color: red;
-    text-decoration-thickness: 1.5px;
+    top: 2px;
+    left: 0;
+    width: 95%;
+    transform: rotate(-10deg);
 }
 
 .tag {
@@ -505,17 +592,16 @@ margin: 0;
 	background-color: #979797;
 	-webkit-border-radius: 3px 4px 4px 3px;
 	-moz-border-radius: 3px 4px 4px 3px;
-	border-radius: 3px 4px 4px 3px;
+	border-radius: 2.4px 4px 4px 2.4px;
 	
 	border-left: 1px solid #979797;
 
 	/* This makes room for the triangle */
-	margin-left: 19px;
 	
 	position: absolute;
-    top: -17px;
+    top: 10px;
+    right: -10px;
     z-index: 1;
-	right: 10px;
 	color: white;
 	font-weight: 300;
 	font-family: 'Source Sans Pro', sans-serif;
@@ -694,6 +780,7 @@ margin: 0;
     border: 2px solid black;
     border-radius: 4px;
     outline: none;
+    transition: none;
 }
 
 .centered-wrapper :is(input:hover:not(.search-bar input), textarea:hover){
@@ -717,6 +804,7 @@ margin: 0;
 .main-bg-holder{
     width: 100%;
     height: 100%;
+    user-select: none;
 }
 
 .main-bg-holder:before {
@@ -901,11 +989,11 @@ margin: 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    width: 25%;
+    width: 15%;
     height: fit-content;
     padding: 20px 0px;
     margin: var(--margin-from-header) 30px;
-
+    margin-right: 0;
 }
 
 .sidebar > * {
@@ -988,17 +1076,27 @@ margin: 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    gap: 0.2rem;
 }
 
 .pages-bar .paging-btn{
-    background: var(--primary-btn-gradient);
+    background-color: white;
     padding: 0 2px;
-    border-radius: 2px;
-    font-size: 25px;
+    font-size: 1.8em;
+    height: 100%;
+    width: 3.5rem;
+    border: 1px solid black;
 }
 
-.pages-bar .paging-btn:hover{
+.pages-bar .paging-btn[disabled]:not(.selected){
+    color: lightgray;
+}
+
+.pages-bar .paging-btn.selected{
+    outline: 2px solid skyblue;
+}
+
+.pages-bar .paging-btn:hover:not([disabled]){
     background: var(--primary-btn-gradient-hover);
 }
 
@@ -1082,6 +1180,7 @@ margin: 0;
 @media (width <= 1674px) {
     .sidebar{
         flex: 1 1 auto;
+        margin: var(--margin-from-header);
     }
 
     .list-viewer .main-col{

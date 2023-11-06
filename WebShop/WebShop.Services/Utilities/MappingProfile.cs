@@ -15,6 +15,7 @@ namespace WebShop.Services.Utilities
             this.CreateMap<AddProductModel, Product>();
             this.CreateMap<Category, CategoryPolyItem>();
             this.CreateMap<Brand, BrandPolyItem>();
+            this.CreateMap<Product, EditProductModel>();
 
             this.CreateMap<Product, ViewProductModel>()
                 .ForMember(dest =>

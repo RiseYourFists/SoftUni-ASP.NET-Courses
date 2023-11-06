@@ -8,14 +8,14 @@
         </a>
     </div>
     <div class="card-content">
+        <span class="tag">@(Model.PromotionalPrice)$</span>
         @{
-            string priceOutput = String.Empty;
             if (Model.Price != Model.PromotionalPrice)
             {
-                priceOutput = $"{Model.Price}$";
+                var priceOutput = $"{Model.Price}$";
+                <span class="actual-price">@priceOutput<hr></span>
             }
         }
-        <span class="tag">@(Model.PromotionalPrice)$<span class="actual-price">@priceOutput</span></span>
         <div class="title">
             <strong>@Model.Name</strong>
         </div>

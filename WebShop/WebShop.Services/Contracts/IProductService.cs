@@ -35,6 +35,10 @@ namespace WebShop.Services.Contracts
 
         Task<ViewProductModel> GetProduct(Guid id);
 
+        Task<EditProductModel> GetEditProduct(Guid id);
+
+        Task PostEditProduct (EditProductModel model);
+
         Task<bool> DoesProductExist(Guid id);
 
     }

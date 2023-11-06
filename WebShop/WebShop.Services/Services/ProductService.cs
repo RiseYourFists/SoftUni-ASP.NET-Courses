@@ -284,5 +284,54 @@ namespace WebShop.Services.Services
             return await repo.AllReadonly<Product>()
                 .AnyAsync(p => p.Id == id);
         }
+
+        /// <summary>
+        /// Gets an existing product from Products table.
+        /// </summary>
+        /// <param name="id">Product's id.</param>
+        /// <returns>Task&lt;EditProductModel&gt;</returns>
+        public async Task<EditProductModel> GetEditProduct(Guid id)
+        {
+            var product = await repo
+                .All<Product>()
+                .Where(p => p.Id == id && !p.IsDeleted)
+                .ProjectTo<EditProductModel>(mapper.ConfigurationProvider)
+                .FirstAsync();
+
+            product.Brands = await repo
+                .AllReadonly<Brand>()
+                .Where(b => !b.IsDeleted)
+                .ProjectTo<BrandListModel>(mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            product.Categories = await repo
+                .AllReadonly<Category>()
+                .Where(c => !c.IsDeleted)
+                .ProjectTo<CategoryListModel>(mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return product;
+        }
+
+        /// <summary>
+        /// Changes the properties of an existing product.
+        /// </summary>
+        /// <param name="model">Template model.</param>
+        /// <returns>Task</returns>
+        public async Task PostEditProduct(EditProductModel model)
+        {
+            var product = await repo.GetByIdAsync<Product>(model.Id);
+
+            product.BrandId = model.BrandId;
+            product.CategoryId = model.CategoryId;
+            product.Name = model.Name;
+            product.Description = model.Description;
+            product.Price = model.Price;
+            product.PromotionalPrice = model.PromotionalPrice;
+            product.ProductImage = model.ProductImage;
+
+            repo.Update(product);
+            await repo.SaveChangesAsync();
+        }
     }
 }
